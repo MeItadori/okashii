@@ -1,536 +1,608 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Okashi — Doce Natal</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg:#0f0f10;
-      --card:#171718;
-      --muted:#bdbdbd;
-      --pink:#ff7fb8;
-      --rose:#ff4b88;
-      --red:#c91b3a;
-      --accent-grad: linear-gradient(135deg,var(--pink),var(--red));
-      --glass: rgba(255,255,255,0.03);
-    }
-    *{box-sizing:border-box}
-    body{
-      font-family:Montserrat,system-ui,Segoe UI,Roboto,Helvetica,Arial;
-      margin:0;
-      background:radial-gradient(circle at top left,#1b0b12 0%, #0f0f10 60%);
-      color:#fff;
-      -webkit-font-smoothing:antialiased
-    }
-    header{
-      position:fixed;left:0;right:0;top:0;z-index:60;
-      background:linear-gradient(180deg,rgba(0,0,0,0.35),rgba(0,0,0,0.12));
-      backdrop-filter: blur(6px);
-      border-bottom:1px solid rgba(255,255,255,0.03)
-    }
-    .container{max-width:1100px;margin:0 auto;padding:0 20px}
-    .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
-    .brand{display:flex;align-items:center;gap:12px}
-    .logo{font-weight:800;font-size:28px;color:var(--pink);}
-    .brand small{display:block;font-size:11px;color:var(--muted);margin-top:-4px}
-    nav ul{
-      display:flex;
-      gap:18px;
-      align-items:center;
-      margin:0;padding:0;
-      list-style:none
-    }
-    nav a{
-      color:#fff;
-      text-decoration:none;
-      padding:8px 12px;
-      border-radius:20px;
-      font-weight:600
-    }
-    nav a.cta{
-      background:var(--pink);
-      color:#200;
-      padding:8px 16px
-    }
-    .menu-toggle{
-      display:none;
-      background:transparent;
-      border:1px solid rgba(255,255,255,0.06);
-      padding:8px;
-      border-radius:8px
-    }
+<head><head>
 
-    main{padding-top:90px}
-    .hero{
-      display:grid;
-      grid-template-columns:1fr 420px;
-      gap:30px;
-      align-items:center;
-      padding:60px 0
-    }
-    .hero h1{font-size:32px;margin:0 0 12px;line-height:1.05}
-    .lead{font-size:18px;color:var(--muted);margin-bottom:20px}
-    .btns{display:flex;gap:12px;flex-wrap:wrap}
-    .btn{
-      padding:12px 18px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,0.06);
-      background:transparent;
-      cursor:pointer;
-      text-decoration:none;
-      color:white
-    }
-    .btn.primary{
-      background:var(--accent-grad);
-      color:#fff;border:none;
-      box-shadow:0 8px 20px rgba(255,80,140,0.12)
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    section{padding:36px 0}
-    .card{
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      padding:18px;
-      border-radius:12px;
-      border:1px solid rgba(255,255,255,0.03)
-    }
+<title>Mundo InvertidoS</title>
 
-    .grid{
-      display:grid;
-      grid-template-columns:1fr 360px;
-      gap:22px
-    }
+<meta property="og:title" content="Mundo InvertidoS">
 
-    footer{
-      border-top:1px solid rgba(255,255,255,0.03);
-      padding:28px 0;
-      margin-top:20px
-    }
+<meta property="og:description"
+content="Entre no universo dos bots Fukuchi, Okashi, Aoi, Manami e Shoppai!">
 
-    /* FAQ */
-    .faq .q{
-      background:transparent;
-      border-radius:10px;
-      padding:14px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      border:1px solid rgba(255,255,255,0.03);
-      cursor:pointer;
-      margin-bottom:10px
-    }
-    .faq .a{
-      display:none;
-      padding:12px 14px;
-      border-left:3px solid var(--pink);
-      background:rgba(255,255,255,0.01);
-      border-radius:8px
-    }
-    .q.open + .a{display:block}
+<meta property="og:image"
+content="https://seusite.com/banner.png">
 
-    /* Snow */
-    #snow{
-      position:fixed;left:0;top:0;pointer-events:none;z-index:20;width:100%;height:100%
-    }
+<meta property="og:url"
+content="https://invertidos.vercel.app/">
 
-    /* ========== MOBILE FIXES ========== */
-    @media(max-width:900px){
-      nav ul{
-        display:none;
-        flex-direction:column;
-        background:rgba(0,0,0,0.6);
-        backdrop-filter:blur(8px);
-        position:absolute;
-        right:20px;top:70px;
-        padding:16px 22px;
-        border-radius:12px;
-      }
+<meta property="og:type"
+content="website">
 
-      .menu-toggle{display:inline-block}
+<meta name="theme-color"
+content="#00ff7b">
 
-      .hero{
-        grid-template-columns:1fr;
-        text-align:center
-      }
-
-      .hero img{
-        width:100% !important;
-        height:auto !important;
-        max-width:350px;
-        margin:auto;
-      }
-
-      .grid{
-        grid-template-columns:1fr
-      }
-    }
-
-    .ornament{
-      position:fixed;
-      right:28px;
-      bottom:80px;
-      background:var(--pink);
-      width:52px;height:52px;border-radius:50%;
-      display:grid;place-items:center;
-      color:#200;
-      font-weight:700;
-      box-shadow:0 8px 20px rgba(255,80,140,0.14);
-      z-index:50
-    }
-  </style>
 </head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Mundo InvertidoS</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins', sans-serif;
+    background:#050505;
+    color:white;
+    overflow:hidden;
+}
+
+/* FUNDO */
+
+.bg{
+    position:fixed;
+    width:100%;
+    height:100%;
+    z-index:-2;
+    background:
+    radial-gradient(circle at top, rgba(0,255,120,0.20), transparent 40%),
+    radial-gradient(circle at bottom, rgba(255,0,120,0.12), transparent 35%),
+    #050505;
+}
+
+.glow{
+    position:fixed;
+    width:500px;
+    height:500px;
+    background:rgba(0,255,100,0.10);
+    filter:blur(120px);
+    z-index:-1;
+    animation:float 8s ease-in-out infinite;
+}
+
+.glow:nth-child(2){
+    right:-100px;
+    top:-100px;
+}
+
+.glow:nth-child(3){
+    left:-150px;
+    bottom:-150px;
+}
+
+@keyframes float{
+    0%{transform:translateY(0px);}
+    50%{transform:translateY(30px);}
+    100%{transform:translateY(0px);}
+}
+
+/* LAYOUT */
+
+.container{
+    display:flex;
+    height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    width:270px;
+    background:#0b0b0b;
+    border-right:1px solid rgba(255,255,255,0.05);
+    padding:30px 20px;
+}
+
+.logo{
+    font-size:28px;
+    font-weight:700;
+    color:#00ff7b;
+    margin-bottom:40px;
+    text-shadow:0 0 15px rgba(0,255,123,0.6);
+}
+
+.nav-btn{
+    width:100%;
+    padding:16px;
+    margin-bottom:15px;
+    border:none;
+    border-radius:14px;
+    background:#111;
+    color:white;
+    font-size:15px;
+    cursor:pointer;
+    transition:0.3s;
+    text-align:left;
+}
+
+.nav-btn:hover{
+    transform:translateX(5px);
+    background:#181818;
+}
+
+.nav-btn.active{
+    background:linear-gradient(90deg,#00ff7b,#009944);
+    color:black;
+    font-weight:700;
+}
+
+/* CONTEÚDO */
+
+.content{
+    flex:1;
+    padding:40px;
+    overflow:hidden;
+    position:relative;
+}
+
+.tab{
+    display:none;
+    height:100%;
+    overflow-y:auto;
+    animation:fade 0.4s ease;
+    padding-right:10px;
+}
+
+.tab.active{
+    display:block;
+}
+
+@keyframes fade{
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+h1{
+    font-size:40px;
+    margin-bottom:20px;
+}
+
+p{
+    line-height:1.8;
+    color:#d0d0d0;
+}
+
+.section{
+    background:#0d0d0d;
+    border:1px solid rgba(255,255,255,0.05);
+    border-radius:24px;
+    padding:35px;
+    margin-bottom:20px;
+    box-shadow:0 0 20px rgba(0,0,0,0.4);
+}
+
+.flex{
+    display:flex;
+    gap:30px;
+    align-items:center;
+    flex-wrap:wrap;
+}
+
+.image-box{
+    width:320px;
+    height:320px;
+    border-radius:20px;
+    overflow:hidden;
+    background:#111;
+    flex-shrink:0;
+    border:2px solid rgba(0,255,123,0.2);
+}
+
+.image-box img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.text-box{
+    flex:1;
+    min-width:300px;
+}
+
+.bot-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    margin-top:30px;
+}
+
+.bot-btn{
+    padding:18px;
+    border:none;
+    border-radius:18px;
+    color:white;
+    font-weight:700;
+    cursor:pointer;
+    transition:0.3s;
+    font-size:15px;
+}
+
+.bot-btn:hover{
+    transform:translateY(-5px);
+}
+
+.okashi{
+    background:linear-gradient(135deg,#ff5ea8,#ff89c0);
+}
+
+.fukuchi{
+    background:linear-gradient(135deg,#00ff7b,#008f45);
+}
+
+.aoi{
+    background:linear-gradient(135deg,#4ba3ff,#005eff);
+}
+
+.disabled{
+    background:#444;
+    cursor:not-allowed;
+}
+
+.link-buttons{
+    display:flex;
+    gap:20px;
+    margin-top:25px;
+    flex-wrap:wrap;
+}
+
+.link-btn{
+    padding:16px 24px;
+    border-radius:14px;
+    text-decoration:none;
+    color:white;
+    font-weight:600;
+    transition:0.3s;
+    background:#111;
+    border:1px solid rgba(255,255,255,0.08);
+}
+
+.link-btn:hover{
+    transform:translateY(-4px);
+    border-color:#00ff7b;
+}
+
+.support{
+    font-size:18px;
+    margin-bottom:25px;
+}
+
+.rules{
+    white-space:pre-line;
+    line-height:1.9;
+    color:#d6d6d6;
+}
+
+::-webkit-scrollbar{
+    width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#00ff7b;
+    border-radius:10px;
+}
+
+</style>
+</head>
+
 <body>
-  <canvas id="snow"></canvas>
 
-  <header>
-    <div class="container nav">
-      <div class="brand">
-        <div class="logo">Okashi</div>
-        <small>Economia • Natal</small>
-      </div>
+<div class="bg"></div>
+<div class="glow"></div>
+<div class="glow"></div>
 
-      <nav>
-        <ul>
-          <li><a href="#home" class="active">Home</a></li>
-          <li><a href="#diretrizes">Diretrizes</a></li>
-          <li><a href="#comandos">Comandos</a></li>
+<div class="container">
 
-          <li><a href="#atualizacoes">Atualizações</a></li>
-          <li><a href="#faq">FAQs</a></li>
-          <li><a href="#adicionar" class="cta">Adicionar</a></li>
-          <li><a href="#suporte">Suporte</a></li>
-        </ul>
+    <!-- MENU -->
+    <div class="sidebar">
 
-        <button class="menu-toggle" onclick="toggleMobile()">☰</button>
-      </nav>
+        <div class="logo">Mundo InvertidoS</div>
+
+        <button class="nav-btn active" onclick="openTab('inicio', this)">🏠 Início</button>
+
+        <button class="nav-btn" onclick="openTab('diretrizes', this)">📜 Diretrizes</button>
+
+        <button class="nav-btn" onclick="openTab('invertidos', this)">📖 InvertidoS</button>
+
+        <button class="nav-btn" onclick="openTab('bots', this)">🤖 Bots</button>
+
+        <button class="nav-btn" onclick="openTab('suporte', this)">🛠️ Suporte</button>
+
     </div>
-  </header>
 
-  <main class="container">
-    <section id="home" class="hero">
+    <!-- CONTEÚDO -->
+    <div class="content">
 
-      <div>
-        <div style="display:flex;align-items:center;gap:12px">
-          <div style="width:68px;height:68px;overflow:hidden"></div>
-          <div>
-            <h1>Okashi — sua bot perfeita para <span style="background:linear-gradient(90deg,var(--pink),var(--red));-webkit-background-clip:text;color:transparent">sua diversão</span> e economia</h1>
-            <p class="lead">Tema natalino — Crie diversão e economia nos seus servidores.</p>
-          </div>
-        </div>
+        <!-- INÍCIO -->
+        <div class="tab active" id="inicio">
 
-        <div class="btns">
-          <a class="btn primary" id="btn-add" href="https://discord.com/oauth2/authorize?client_id=1260272153979388076&permissions=3379487232608320&integration_type=0&scope=bot" target="_blank">Adicionar ao Discord ➜</a>
-          <a class="btn" id="btn-support" href="https://discord.gg/t2Vnfm3qr7" target="_blank">Servidor de Suporte</a>
-        </div>
-      </div>
+            <div class="section flex">
 
-      <div style="display:flex;align-items:center;justify-content:center;">
-        <div style="width:100%;max-width:512px;display:flex;align-items:center;justify-content:center;">
-          <img src="okashinatal.png" alt="Okashi" style="width:100%;height:auto;">
-        </div>
-      </div>
+                <div class="image-box">
+                    <img src="mis.png">
+                </div>
 
-    </section>
+                <div class="text-box">
 
-    <!-- TODO O RESTANTE MANTEVE 100% IGUAL -->
-    <!-- (todo o conteúdo permanece exatamente igual → omitido aqui apenas por limite) -->
+                    <h1>🌍 Seja bem-vindo(a) ao Mundo InvertidoS!</h1>
 
+                    <p>
+                    Aqui você vai encontrar um grupo de 5 bots, cada um com sua própria personalidade, funções e caos organizado.
+                    Claro, eu sou a Okashi — a favorita da galera, a mais incrível de todas e também quem carrega esse projeto inteiro nas costas. Os outros ajudam… às vezes.
+                    <br><br>
 
-<section id="diretrizes">
-  <div class="card">
-    <h2>Diretrizes</h2>
+                    ⚽ Fukuchi está focado na nova atualização temática de Copa do Mundo, Brasil, futebol e tudo nesse clima competitivo e divertido.
+                    <br><br>
 
-    <p><strong>Bem-vindo ao universo doce da <span style="white-space: nowrap;">Okashi</span>!</strong><br>
-    Para garantir uma experiência divertida, equilibrada e segura para todos os usuários e servidores, siga atentamente as diretrizes abaixo.</p>
+                    📩 Aoi ainda está em fase beta, então no momento possui apenas o comando de Tellonym disponível.
+                    <br><br>
 
-    <hr>
+                    🛠️ Manami e Shoppai continuam em desenvolvimento. Ainda não estão prontos para o público, mas novidades vêm aí.
+                    <br><br>
 
-    <h3>Uso Geral do Bot</h3>
-    <ul>
-      <li>A Okashi funciona em qualquer servidor onde estiver adicionado.</li>
-      <li>O bot registra mensagens apenas para fins de <strong>farm de biscoitos</strong> (1 biscoito a cada 10 mensagens).</li>
-      <li>Spams excessivos para ganhar biscoitos podem ser punidos de acordo com as regras do servidor.</li>
-      <li>O bot nunca coleta dados pessoais — apenas informações de economia dentro do servidor (cookies, doces, inventário e rankings).</li>
-    </ul>
+                    Aproveite sua estadia no Mundo InvertidoS — e cuidado para não se apegar demais a nós.
+                    </p>
 
-    <hr>
+                </div>
 
-    <h3>Economia e Progressão</h3>
-    <ul>
-      <li>Biscoitos são gerados por atividade, <strong>não por spam</strong>. O uso incorreto pode resultar em perda de progresso e banimento do bot no evento e nas próximas atualizações.</li>
-      <li>A venda de biscoitos segue a proporção base <strong>1 biscoito = 50 doces</strong>, salvo multiplicadores.</li>
-      <li>O uso de abreviações numéricas (k, kk, m) é permitido em todos os comandos.</li>
-    </ul>
-
-    <hr>
-
-    <h3>Itens e Efeitos</h3>
-    <ul>
-      <li>Itens ofensivos (relâmpago, trovão, dançarina, raposa) devem respeitar o bom senso do servidor.</li>
-      <li>Itens só podem ser usados em usuários reais presentes no servidor.</li>
-      <li>A Okashi não é responsável por conflitos decorrentes do uso de itens — isso cabe à moderação.</li>
-    </ul>
-
-    <hr>
-
-    <h3>Regras de Conduta</h3>
-    <ul>
-      <li>Não use o bot para assédio, perseguição ou brincadeiras ofensivas.</li>
-      <li>Proibido spam, flood e automação para farmar biscoitos.</li>
-      <li>Não tente explorar bugs, duplicar itens ou causar instabilidades.</li>
-      <li>Uso malicioso pode resultar em reset ou banimento global.</li>
-    </ul>
-
-    <hr>
-
-    <h3>Suporte e Problemas</h3>
-    <ul>
-      <li>Se encontrar bugs ou inconsistências, reporte claramente.</li>
-      <li>Atualizações podem alterar preços, efeitos e regras.</li>
-      <li>Se um comando não responder, verifique permissões do bot.</li>
-    </ul>
-
-    <hr>
-
-    <h3>Jogabilidade Justa</h3>
-    <p>
-      O objetivo do Okashi é <strong>diversão, competição saudável e interação entre membros</strong>.<br>
-      Jogue limpo, cuide dos seus biscoitos e aproveite a economia doce!
-    </p>
-
-  </div>
-</section>
-
-    <section id="comandos">
-      <div class="grid">
-        <div>
-          <h2>Comandos Principais</h2>
-
-          <div class="cmd card">
-            <h3>O!bal</h3>
-            <p class="muted">Mostra quantos <strong>biscoitos</strong> e <strong>doces</strong> o usuário possui. Aceita formatos abreviados: <code>1k = 1000</code>, <code>10k = 10000</code>, <code>1kk = 1000000</code>, <code>1m = 1.000.000</code>.</p>
-          </div>
-
-          <div class="cmd card">
-            <h3>O!sell</h3>
-            <p class="muted">Vende a quantidade de biscoitos escolhida e converte em doces. Aceita formatos como <code>1000</code>, <code>1k</code>, <code>10k</code>.</p>
-          </div>
-
-          <div class="cmd card">
-            <h3>O!shop</h3>
-            <p class="muted">Exibe todos os itens e cargos disponíveis para compra na loja local do servidor.</p>
-          </div>
-
-          <div class="cmd card">
-            <h3>O!buy</h3>
-            <p class="muted">Compra um item da loja usando doces.</p>
-          </div>
-
-          <div class="cmd card">
-            <h3>O!abrir</h3>
-            <p class="muted">Abre caixas surpresa adquiridas na loja. As caixas podem conter biscoitos extras, cargos ou carvões (itens inúteis).</p>
-          </div>
-
-          <div class="cmd card">
-            <h3>O!rank</h3>
-            <p class="muted">Mostra o ranking de usuários <strong>do servidor atual</strong>, ordenado por doces.</p>
-          </div>
-
-          <div class="cmd card">
-            <h3>O!rank global</h3>
-            <p class="muted">Mostra o ranking <strong>global</strong> de usuários, somando todos os servidores.</p>
-          </div>
-
-          <div class="cmd card">
-            <h3>O!server</h3>
-            <p class="muted">Mostra o ranking de servidores com maior quantidade de <strong>biscoitos</strong> farmeados pelos membros.</p>
-          </div>
-
-          <div class="cmd card">
-            <h3>O!inv</h3>
-            <p class="muted">Mostra o inventário do usuário, incluindo todos os itens adquiridos na loja.</p>
-          </div>
-
-          <h3>Comandos exclusivos de administrador</h3>
-          <div class="cmd card">
-            <h3>O!setrole</h3>
-            <p class="muted">Adiciona um <strong>cargo</strong> à loja somente do servidor atual (não aparece na loja global).</p>
-          </div>
-
-          <h3>Comandos adicionais</h3>
-          <div class="cmd card">
-            <h3>O!usar</h3>
-            <p class="muted">Usa algum dos itens que o usuário comprou na loja.</p>
-          </div>
+            </div>
 
         </div>
 
-        <aside>
-          <div class="card">
-            <h3>Itens da Loja Fixa (9 Renas + caixa surpresa)</h3>
-            <ul style="padding-left:16px">
-              <li><strong>Rodolfo</strong> — Multiplica (5x) os cookies ganhos por 5 minutos. Preço: 22k doces.</li>
-              <li><strong>Corredora</strong> — Próxima compra 50% desconto. Preço: 40k doces + 200 biscoitos.</li>
-              <li><strong>Dançarina</strong> — Impede um usuário de ganhar cookies por 5 minutos. Preço: 35k doces.</li>
-              <li><strong>Empinadora</strong> — Multiplica (10x) cookies por 5 minutos. Preço: 30k doces.</li>
-              <li><strong>Raposa</strong> — Tenta roubar 5% dos doces de outro usuário. Preço: 60k doces.</li>
-              <li><strong>Cometa</strong> — Multiplica valor na próxima venda. Preço: 30k doces + 200k biscoitos.</li>
-              <li><strong>Relâmpago</strong> — Usuário perde 5% dos doces e biscoitos. Preço: 45k doces.</li>
-              <li><strong>Trovão</strong> — Igual ao Relâmpago, 50% chance de voltar para você. Preço: 28k doces.</li>
-              <li><strong>Cupido</strong> — Liga você a outro usuário por 1 dia. Preço: 12k doces.</li>
-              <li><strong>Caixa Surpresa</strong> — Podem conter biscoitos extras, cargos ou carvões (itens inúteis).</li>
-            </ul>
-          </div>
-        </aside>
+        <!-- DIRETRIZES -->
+        <div class="tab" id="diretrizes">
 
-      </div>
-    </section>
+            <div class="section">
 
-    <section id="atualizacoes">
-      <div class="card">
-        <h2>Atualizações Recentes</h2>
-        <h3>✨ Atualização de Natal — “Ho! Ho! Ho!”</h3>
-        <p>Assim como na atualização de Halloween, os ganhos continuam baseados em mensagens enviadas.</p>
-        <h4>Como funciona?</h4>
-        <ul>
-          <li>A cada <strong>10 mensagens</strong>, você recebe <strong>1 biscoito</strong>.</li>
-          <li>Biscoitos podem ser vendidos por <strong>50 doces</strong>.</li>
-          <li>Com doces, você compra <strong>renas</strong> com habilidades especiais.</li>
-          <li>Cada rena dura <strong>5 minutos</strong>, exceto Cupido (1 dia).</li>
-        </ul>
+                <h1>📜 Diretrizes dos Bots</h1>
 
-        <h4>Renas e seus efeitos</h4>
-        <ul>
-          <li><strong>Rodolfo</strong> — Multiplica (5x) cookies por 5 minutos.</li>
-          <li><strong>Corredora</strong> — Próxima compra pela metade do preço.</li>
-          <li><strong>Dançarina</strong> — Impede um usuário de ganhar cookies por 5 minutos.</li>
-          <li><strong>Empinadora</strong> — Multiplica (10x) cookies por 5 minutos.</li>
-          <li><strong>Raposa</strong> — Rouba 5% de doces de outro usuário.</li>
-          <li><strong>Cometa</strong> — Multiplica o valor obtido ao vender biscoitos.</li>
-          <li><strong>Relâmpago</strong> — Faz um usuário perder 5% dos doces e cookies.</li>
-          <li><strong>Trovão</strong> — Mesmo efeito, 50% de chance de voltar contra você.</li>
-          <li><strong>Cupido</strong> — Liga dois usuários; ganhos e danos são compartilhados.</li>
-        </ul>
-      </div>
-    </section>
+                <div class="rules">
 
-    <section id="faq">
-      <h2>FAQs</h2>
-      <div class="faq card">
-        <div class="q" onclick="toggleFaq(this)">
-          <div><strong>Como ganho biscoitos?</strong></div>
-          <div>+</div>
+🇧🇷 DIRETRIZES OFICIAIS DO FUKUCHI
+
+⚽ Bem-vindo ao universo do Fukuchi!
+
+O Fukuchi é um bot focado em futebol, copa, rivalidade saudável, economia brasileira e diversão entre amigos.
+
+🇧🇷 Uso Geral do Bot
+
+- O Fukuchi funciona em qualquer servidor.
+- Registra atividades apenas para economia, partidas e progressão.
+- Flood, spam ou automações podem gerar punições.
+
+⚽ Economia e Progressão
+
+- Pontos de brasilidade devem ser conquistados jogando normalmente.
+- Explorar bugs ou duplicar itens pode resultar em reset ou banimento.
+
+🏆 Partidas e Competição
+
+- Competição saudável acima de tudo.
+- Não use múltiplas contas para manipular rankings.
+
+🌱 Fazendas e Plantação
+
+- Sistema automático e acumulativo.
+- Exploits são proibidos.
+
+👹 Poderes Folclóricos
+
+- Tudo deve permanecer na brincadeira saudável.
+
+🚫 Regras de Conduta
+
+É proibido:
+
+- Spam/Flood
+- Uso de automações
+- Exploração de bugs
+- Duplicação de itens
+- Assédio usando comandos
+
+────────────────────────────
+
+🍬 DIRETRIZES OFICIAIS DA OKASHI
+
+Bem-vindo ao universo doce da Okashi!
+
+Uso Geral do Bot
+
+- O bot registra mensagens apenas para farm de biscoitos.
+- Spam excessivo pode ser punido.
+
+Economia e Progressão
+
+- Biscoitos são gerados por atividade.
+- O uso incorreto pode resultar em punições.
+
+Itens e Efeitos
+
+- Itens ofensivos devem respeitar o bom senso.
+
+🚫 Regras de Conduta
+
+- Não use o bot para assédio.
+- Não tente explorar bugs ou duplicar itens.
+
+🍪 Jogabilidade Justa
+
+O objetivo da Okashi é diversão, interação e competição saudável.
+
+                </div>
+
+            </div>
+
         </div>
-        <div class="a">A cada <strong>10 mensagens enviadas</strong>, você recebe <strong>1 biscoito automaticamente</strong>.</div>
 
-        <div class="q" onclick="toggleFaq(this)">
-          <div><strong>O bot aceita números abreviados?</strong></div>
-          <div>+</div>
+        <!-- INVERTIDOS -->
+        <div class="tab" id="invertidos">
+
+            <div class="section flex">
+
+                <div class="image-box">
+                    <img src="invertidos.png">
+                </div>
+
+                <div class="text-box">
+
+                    <h1>📖 InvertidoS</h1>
+
+                    <p>
+
+                    Sabia que os bot's são de uma Light Novel?
+                    <br><br>
+
+                    <strong>Sinopse</strong>
+                    <br><br>
+
+                    Uma garota com nome doce, mas de temperamento afiado.
+                    Um garoto de nome salgado, mas com um coração surpreendentemente gentil.
+                    Nomes trocados, personalidades invertidas.
+                    Dois opostos que não deveriam fazer sentido… mas fazem.
+                    <br><br>
+
+                    Em meio a um país comum, onde tudo segue o esperado, eles são a exceção.
+                    Eles são o incomum desse país.
+                    E o que poderia dar errado?
+                    Simples: absolutamente tudo.
+
+                    </p>
+
+                    <div class="link-buttons">
+
+                        <a class="link-btn" href="#" target="_blank">
+                            📚 Ler na WebNovel
+                        </a>
+
+                        <a class="link-btn" href="#" target="_blank">
+                            ✨ Ler no Wattpad
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
-        <div class="a">Sim! Exemplos: <code>1k = 1000</code>, <code>10k = 10000</code>, <code>1kk = 1.000.000</code>, <code>1m = 1.000.000</code>.</div>
 
-        <div class="q" onclick="toggleFaq(this)">
-          <div><strong>O que posso fazer com doces?</strong></div>
-          <div>+</div>
+        <!-- BOTS -->
+        <div class="tab" id="bots">
+
+            <div class="section">
+
+                <h1>🤖 Bots</h1>
+
+                <p>Quer adicionar algum bot?</p>
+
+                <div class="bot-grid">
+
+<a
+href="https://discord.com/oauth2/authorize?client_id=1260272153979388076&permissions=7882391277272272&integration_type=0&scope=bot"
+target="_blank"
+class="bot-btn okashi">
+
+🍬 Adicionar Okashi
+
+</a>
+
+<a
+href="https://discord.com/oauth2/authorize?client_id=1428702890608033922&permissions=6756483987930176&integration_type=0&scope=bot"
+target="_blank"
+class="bot-btn fukuchi">
+
+⚽ Adicionar Fukuchi
+
+</a>
+
+<a
+href="https://discord.com/oauth2/authorize?client_id=1337581726804738058&permissions=8&integration_type=0&scope=bot"
+target="_blank"
+class="bot-btn aoi">
+
+💙 Adicionar Aoi
+
+</a>
+
+<button class="bot-btn disabled">
+🟣 Manami ainda em desenvolvimento
+</button>
+
+<button class="bot-btn disabled">
+🟡 Shoppai ainda em desenvolvimento
+</button>
+
+</div>
+
+                </div>
+
+            </div>
+
         </div>
-        <div class="a">Comprar itens, cargos adicionados pelo administrador e caixas surpresa.</div>
 
-        <div class="q" onclick="toggleFaq(this)">
-          <div><strong>Os itens da loja são globais?</strong></div>
-          <div>+</div>
+        <!-- SUPORTE -->
+        <div class="tab" id="suporte">
+
+            <div class="section">
+
+                <h1>🛠️ Suporte</h1>
+
+                <p class="support">
+                Caso encontre bugs, erros, problemas com comandos ou precise de ajuda,
+                entre em um dos servidores abaixo.
+                Nossa equipe e comunidade poderão ajudar você.
+                </p>
+
+                <div class="link-buttons">
+
+                    <a class="link-btn" href=" https://discord.gg/tdo-869669730116599839" target="_blank">
+                        🇧🇷 Servidor não oficial do Fukuchi
+                    </a>
+
+                    <a class="link-btn" href="https://discord.gg/bQ8DY2ZN2U" target="_blank">
+                        🌍 Servidor oficial do InvertidoS
+                    </a>
+
+                </div>
+
+            </div>
+
         </div>
-        <div class="a">A loja fixa é global, mas <strong>os cargos adicionados com O!setrole são apenas do servidor atual</strong>.</div>
 
-        <div class="q" onclick="toggleFaq(this)">
-          <div><strong>Cupido funciona como?</strong></div>
-          <div>+</div>
-        </div>
-        <div class="a">Ao usar, você se conecta a outro usuário: ambos compartilham multiplicadores; se um perder algo, o outro perde também; dura 24 horas.</div>
+    </div>
 
-        <div class="q" onclick="toggleFaq(this)">
-          <div><strong>Posso usar itens em outros servidores?</strong></div>
-          <div>+</div>
-        </div>
-        <div class="a">Sim, o inventário é global, mas os <strong>cargos da loja</strong> são somente do servidor onde foram configurados.</div>
-      </div>
-    </section>
+</div>
 
-    <section id="adicionar">
-      <div class="card">
-        <h2>Adicionar ao Discord</h2>
-        <p>Clique no botão abaixo para adicionar o Okashi ao seu servidor.</p>
-        <a class="btn primary" href="https://discord.com/oauth2/authorize?client_id=1260272153979388076&permissions=3379487232608320&integration_type=0&scope=bot" target="_blank">Adicionar Okashi ao Discord</a>
-      </div>
-    </section>
+<script>
 
-    <section id="suporte">
-      <div class="card">
-        <h2>Servidor de Suporte</h2>
-        <p>Entre no servidor oficial para suporte, sugestões e para receber atualizações</p>
-        <a class="btn" href="https://discord.gg/t2Vnfm3qr7" target="_blank">Entrar no Servidor de Suporte</a>
-      </div>
-    </section>
+function openTab(tabId, button){
 
-    <footer>
-      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px">
-        <div>
-          <strong>Contato</strong>
-          <div class="muted">Servidor de Suporte • Adicionar ao Discord</div>
-        </div>
-        <div style="text-align:right;">
-          <div style="margin-bottom:6px">Feito com ❤️ por mehisoka</div>
-          <div class="muted">© 2025 Okashi Bot. Todos os direitos reservados.</div>
-        </div>
-      </div>
-    </footer>
+    const tabs = document.querySelectorAll('.tab');
+    tabs.forEach(tab => tab.classList.remove('active'));
 
-  </main>
+    document.getElementById(tabId).classList.add('active');
 
-  <div class="ornament">↑</div>
+    const buttons = document.querySelectorAll('.nav-btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
 
-  <script>
-    function toggleMobile(){
-      const ul = document.querySelector('nav ul');
-      if(ul.style.display === 'flex') ul.style.display='none'; else ul.style.display='flex';
-    }
+    button.classList.add('active');
+}
 
-    function toggleFaq(el){
-      el.classList.toggle('open');
-      const plus = el.querySelector('div:last-child');
-      plus.textContent = el.classList.contains('open') ? '−' : '+';
-    }
+</script>
 
-    const canvas = document.getElementById('snow');
-    const ctx = canvas.getContext('2d');
-    let W = canvas.width = window.innerWidth;
-    let H = canvas.height = window.innerHeight;
-    const flakes = [];
-    function rand(min,max){return Math.random()*(max-min)+min}
-    for(let i=0;i<180;i++){flakes.push({x:rand(0,W),y:rand(0,H),r:rand(0.7,3),d:rand(0.5,2),s:rand(0.2,1)})}
-    function update(){
-      ctx.clearRect(0,0,W,H);
-      for(let f of flakes){
-        ctx.beginPath();ctx.fillStyle='rgba(255,255,255,'+ (0.6*f.s) +')';
-        ctx.arc(f.x,f.y,f.r,0,Math.PI*2);ctx.fill();
-        f.y += f.d + f.s;
-        f.x += Math.sin(f.y*0.01)*0.6;
-        if(f.y>H+5){f.y = -10; f.x = rand(0,W)}
-      }
-      requestAnimationFrame(update);
-    }
-    update();
-    window.addEventListener('resize',()=>{W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight});
-
-    document.querySelectorAll('a[href^="#"]').forEach(a=>{
-      a.addEventListener('click',e=>{
-        const href = a.getAttribute('href');
-        if(href === '#') return;
-        e.preventDefault();
-        const el = document.querySelector(href);
-        if(el) el.scrollIntoView({behavior:'smooth'});
-      })
-    })
-  </script>
 </body>
 </html>
