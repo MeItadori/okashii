@@ -276,7 +276,7 @@
             padding: 25px;
             border-radius: 20px;
             display: flex;
-            justify-content: space-between; /* Empurra os blocos para os lados opostos */
+            justify-content: space-between;
             align-items: center;
             gap: 25px;
             margin-bottom: 25px;
@@ -285,15 +285,15 @@
 
         .bot-info {
             flex: 1;
-            text-align: left; /* Garante alinhamento à esquerda */
+            text-align: left;
         }
 
         .bot-avatar { 
             width: 100px; 
             height: 100px; 
             object-fit: cover; 
-            border-radius: 0; /* Remove a borda arredondada */
-            border: none; /* Remove qualquer contorno ou borda */
+            border-radius: 0;
+            border: none;
         }
 
         .bot-info h2 { font-size: 2.2rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
@@ -325,7 +325,7 @@
         .emoji-box { display: flex; gap: 12px; margin-top: 15px; }
         .emoji-box img { width: 45px; height: 45px; object-fit: contain; }
 
-        /* CASO DE BOT SEM CONTEÚDO (MANTENDO TEXTO NA ESQUERDA E IMAGEM NA DIREITA SEM BORDA) */
+        /* CASO DE BOT SEM CONTEÚDO */
         .empty-bot-message {
             display: flex;
             justify-content: space-between;
@@ -411,7 +411,6 @@
     </header>
 
     <main>
-
         <section id="home" class="content-section active">
             <div class="home-hero">
                 <div class="home-text">
@@ -430,7 +429,7 @@
 
             <div class="home-description-section">
                 <p class="project-intro">
-                    O Mundo InvertidoS (MIS) é um projeto criado com o objetivo de oferecer recursos inovadores para servidores de todos os tamanhos, dando vida aos cinco protagonistas da novel InvertidoS por meio de bots únicos, cada um com sua própria personalidade e função.
+                    O Mundo InvertidoS (MIS) é um projeto criado com o objetivo de oferecer recursos inovadores para servidores de todos os tamanhos, dando vida aos cinco protagonistas da novel InvertidoS por meio de bots uniques, cada um com sua própria personalidade e função.
                 </p>
 
                 <div class="protagonists-list">
@@ -586,206 +585,222 @@
         </section>
 
         <section id="diretrizes" class="content-section">
-    <div class="accordion-container">
-        
-        <div class="accordion-item">
-            <div class="accordion-header acc-okashi" onclick="toggleAccordion(this)">Okashi <span>▼</span></div>
-            <div class="accordion-content">
-                <p>Não tem nada para ver aqui ¯\_(ツ)_/¯</p>
-            </div>
-        </div>
+            <div class="accordion-container">
+                <div class="accordion-item">
+                    <div class="accordion-header acc-okashi" onclick="toggleAccordion(this)">Okashi <span>▼</span></div>
+                    <div class="accordion-content"><p>Não tem nada para ver aqui ¯\_(ツ)_/¯</p></div>
+                </div>
 
-        <div class="accordion-item">
-            <div class="accordion-header acc-fukuchi" onclick="toggleAccordion(this)">Fukuchi <span>▼</span></div>
-            <div class="accordion-content">
-                <p>
-                    <strong>📜 DIRETRIZES DO USUÁRIO & TERMOS DE SERVIÇO</strong><br><br>
-                    Olá, Brasileiro! Bem-vindo às diretrizes oficiais do Fukuchi. Para garantir um ambiente divertido, justo e seguro para todos os usuários que utilizam nossos comandos de economia, fazendinha e futebol, estabelecemos algumas regras fundamentais.<br>
-                    Ao adicionar o Fukuchi ao seu servidor ou interagir com seus comandos, você concorda automaticamente com os termos listados abaixo. O não cumprimento dessas regras resultará em punições severas pela ABF (Associação Brasileira do Fukuchi) e nossa equipe de moderação global.<br><br>
-                    
-                    <strong>1. 🛡️ REGRAS DE CONVIVÊNCIA E COMPORTAMENTO</strong><br>
-                    • <strong>Proibido Conteúdo Ofensivo:</strong> É estritamente proibido utilizar sistemas de customização do bot (como alterar nomes de times, mensagens de Sedex ou campos customizados do CPF) para propagar discursos de ódio, racismo, homofobia, xenofobia, pornografia/NSFW ou apologia a crimes.<br>
-                    • <strong>Assédio e Ataques:</strong> Utilizar comandos de ataque (como o comando do Saci-Pererê) ou o sistema de mensagens anônimas/Sedex de forma obsessiva para perseguir, assediar ou intimidar um usuário específico será considerado abuso de funções.<br><br>
-                    
-                    <strong>2. 💸 ECONOMIA, EXPLOITS E BUGS</strong><br>
-                    • <strong>Uso de Bugs (Exploits):</strong> Se você encontrar qualquer erro, falha ou bug no código do Fukuchi que multiplique moedas de forma errônea, pule cooldowns ou dê vantagens injustas, você deve reportar imediatamente.<br>
-                    • <strong>Uso de Bots, Macros e Scripts (Selfbots):</strong> É proibido utilizar macros, autoclickers, scripts ou contas secundárias automatizadas. Toda e qualquer interação com o Fukuchi deve ser feita por um humano em tempo real.<br><br>
-                    
-                    <strong>3. 👥 MULTI-CONTAS (ALT-ACCOUNTS)</strong><br>
-                    • <strong>Farm de Moedas com Contas Fakes:</strong> É proibido criar contas alternativas ("fakes") no Discord com o único objetivo de coletar o bônus diário (F.auxilio) e transferir os fundos para a sua conta principal.<br><br>
-                    
-                    <strong>4. ⚖️ PUNIÇÕES E A POLÍCIA DO FUKUCHI</strong><br>
-                    • <strong>Prisão Temporária/Local:</strong> Uso do comando F.prender para retirar temporariamente seus direitos de interagir com o bot em virtude do mau comportamento.<br>
-                    • <strong>Blacklist Global (Banimento do Bot):</strong> Em casos graves, o usuário será banido de toda a rede do Fukuchi.<br>
-                    • <strong>Reset de Conta:</strong> Perda total de moedas, conquistas, títulos, jogadores do time e sementes da fazenda.<br><br>
-                    
-                    <strong>5. 🔒 PRIVACIDADE E DADOS DO USUÁRIO</strong><br>
-                    • <strong>O que salvamos:</strong> O ID público do seu usuário do Discord, seu saldo de moedas, estatísticas de jogos, histórico de login de comandos e itens do inventário.<br><br>
-                    
-                    <strong>📢 NOTA LEGAL / AVISOS FINAIS</strong><br>
-                    As moedas, pepitas, títulos e jogadores gerenciados pelo Fukuchi são bens estritamente virtuais e fictícios.<br>
-                    Jogue limpo, monte seu time de futebol lendário e divirta-se! 🇧🇷
-                </p>
-            </div>
-        </div>
+                <div class="accordion-item">
+                    <div class="accordion-header acc-fukuchi" onclick="toggleAccordion(this)">Fukuchi <span>▼</span></div>
+                    <div class="accordion-content">
+                        <p>
+                            <strong>📜 DIRETRIZES DO USUÁRIO & TERMOS DE SERVIÇO</strong><br><br>
+                            Olá, Brasileiro! Bem-vindo às diretrizes oficiais do Fukuchi. Para garantir um ambiente divertido, justo e seguro para todos os usuários que utilizam nossos comandos de economia, fazendinha e futebol, estabelecemos algumas regras fundamentais.<br>
+                            Ao adicionar o Fukuchi ao seu servidor ou interagir com seus comandos, você concorda automaticamente com os termos listados abaixo. O não cumprimento dessas regras resultará em punições severas pela ABF (Associação Brasileira do Fukuchi) e nossa equipe de moderação global.<br><br>
+                            
+                            <strong>1. 🛡️ REGRAS DE CONVIVÊNCIA E COMPORTAMENTO</strong><br>
+                            • <strong>Proibido Conteúdo Ofensivo:</strong> É estritamente proibido utilizar sistemas de customização do bot (como alterar nomes de times, mensagens de Sedex ou campos customizados do CPF) para propagar discursos de ódio, racismo, homofobia, xenofobia, pornografia/NSFW ou apologia a crimes.<br>
+                            • <strong>Assédio e Ataques:</strong> Utilizar comandos de ataque (como o comando do Saci-Pererê) ou o sistema de mensagens anônimas/Sedex de forma obsessiva para perseguir, assediar ou intimidar um usuário específico será considerado abuso de funções.<br><br>
+                            
+                            <strong>2. 💸 ECONOMIA, EXPLOITS E BUGS</strong><br>
+                            • <strong>Uso de Bugs (Exploits):</strong> Se você encontrar qualquer erro, falha ou bug no código do Fukuchi que multiplique moedas de forma errônea, pule cooldowns ou dê vantagens injustas, você deve reportar imediatamente.<br>
+                            • <strong>Uso de Bots, Macros e Scripts (Selfbots):</strong> É proibido utilizar macros, autoclickers, scripts ou contas secundárias automatizadas. Toda e qualquer interação com o Fukuchi deve ser feita por um humano em tempo real.<br><br>
+                            
+                            <strong>3. 👥 MULTI-CONTAS (ALT-ACCOUNTS)</strong><br>
+                            • <strong>Farm de Moedas com Contas Fakes:</strong> É proibido criar contas alternativas ("fakes") no Discord com o único objetivo de coletar o bônus diário (F.auxilio) e transferir os fundos para a sua conta principal.<br><br>
+                            
+                            <strong>4. ⚖️ PUNIÇÕES E A POLÍCIA DO FUKUCHI</strong><br>
+                            • <strong>Prisão Temporária/Local:</strong> Uso do comando F.prender para retirar temporariamente seus direitos de interagir com o bot em virtude do mau comportamento.<br>
+                            • <strong>Blacklist Global (Banimento do Bot):</strong> Em casos graves, o usuário será banido de toda a rede do Fukuchi.<br>
+                            • <strong>Reset de Conta:</strong> Perda total de moedas, conquistas, títulos, jogadores do time e sementes da fazenda.<br><br>
+                            
+                            <strong>5. 🔒 PRIVACIDADE E DADOS DO USUÁRIO</strong><br>
+                            • <strong>O que salvamos:</strong> O ID público do seu usuário do Discord, seu saldo de moedas, estatísticas de jogos, histórico de login de comandos e itens do inventário.<br><br>
+                            
+                            <strong>📢 NOTA LEGAL / AVISOS FINAIS</strong><br>
+                            As moedas, pepitas, títulos e jogadores gerenciados pelo Fukuchi são bens estritamente virtuais e fictícios.<br>
+                            Jogue limpo, monte seu time de futebol lendário e divirta-se! 🇧🇷
+                        </p>
+                    </div>
+                </div>
 
-        <div class="accordion-item">
-            <div class="accordion-header acc-shoppai" onclick="toggleAccordion(this)">Shoppai <span>▼</span></div>
-            <div class="accordion-content">
-                <p>Não tem nada para ver aqui ¯\_(ツ)_/¯</p>
-            </div>
-        </div>
+                <div class="accordion-item">
+                    <div class="accordion-header acc-shoppai" onclick="toggleAccordion(this)">Shoppai <span>▼</span></div>
+                    <div class="accordion-content"><p>Não tem nada para ver aqui ¯\_(ツ)_/¯</p></div>
+                </div>
 
-        <div class="accordion-item">
-            <div class="accordion-header acc-aoi" onclick="toggleAccordion(this)">Aoi <span>▼</span></div>
-            <div class="accordion-content">
-                <p>Não tem nada para ver aqui ¯\_(ツ)_/¯</p>
-            </div>
-        </div>
+                <div class="accordion-item">
+                    <div class="accordion-header acc-aoi" onclick="toggleAccordion(this)">Aoi <span>▼</span></div>
+                    <div class="accordion-content"><p>Não tem nada para ver aqui ¯\_(ツ)_/¯</p></div>
+                </div>
 
-        <div class="accordion-item">
-            <div class="accordion-header acc-manami" onclick="toggleAccordion(this)">Manami <span>▼</span></div>
-            <div class="accordion-content">
-                <p>Não tem nada para ver aqui ¯\_(ツ)_/¯</p>
+                <div class="accordion-item">
+                    <div class="accordion-header acc-manami" onclick="toggleAccordion(this)">Manami <span>▼</span></div>
+                    <div class="accordion-content"><p>Não tem nada para ver aqui ¯\_(ツ)_/¯</p></div>
+                </div>
             </div>
-        </div>
-
-    </div>
         </section>
-
     </main>
 
-    <script>// --- CONFIGURAÇÕES DO DISCORD OAUTH2 ---
-const CLIENT_ID = '1428702890608033922'; // Insira o Client ID do seu bot aqui
-const REDIRECT_URI = 'https://invertidos.vercel.app/'; // URL exata configurada no portal
+    <script>
+        // --- CONFIGURAÇÕES DO DISCORD OAUTH2 ---
+        const CLIENT_ID = '1428702890608033922'; 
+        const REDIRECT_URI = 'https://invertidos.vercel.app/'; 
 
-// --- SISTEMA DE LOGIN PERSISTENTE E REAL DO DISCORD ---
+        // --- SISTEMA DE LOGIN PERSISTENTE E CORRIGIDO ---
+        function checkLoginState() {
+            // 1. Captura os parâmetros após a hashtag (#) retornados pelo Discord
+            const hash = window.location.hash;
+            if (hash) {
+                const params = new URLSearchParams(hash.slice(1));
+                const accessToken = params.get('access_token');
+                
+                if (accessToken) {
+                    // Limpa a URL limpando o hash para estética profissional
+                    window.history.replaceState({}, document.title, window.location.pathname + window.location.search);
+                    localStorage.setItem('discord_access_token', accessToken);
+                    fetchDiscordUserData(accessToken);
+                    return;
+                }
+            }
 
-// Função executada assim que a página carrega
-function checkLoginState() {
-    // 1. Verifica se veio um token de acesso na URL (o Discord envia após o login)
-    const fragment = new URLSearchParams(window.location.hash.slice(1));
-    const accessToken = fragment.get('access_token');
-
-    if (accessToken) {
-        // Limpa o token da URL para o endereço ficar limpo
-        window.location.hash = '';
-        // Salva o token no navegador para persistência
-        localStorage.setItem('discord_access_token', accessToken);
-        // Busca os dados do perfil real do usuário
-        fetchDiscordUserData(accessToken);
-        return;
-    }
-
-    // 2. Se não veio na URL, verifica se já existe um token salvo no localStorage
-    const savedToken = localStorage.getItem('discord_access_token');
-    if (savedToken) {
-        fetchDiscordUserData(savedToken);
-    } else {
-        // Se não tem token nenhum, mostra o botão de login padrão
-        showLoginButton();
-    }
-}
-
-// Busca os dados de perfil diretamente da API oficial do Discord
-function fetchDiscordUserData(token) {
-    fetch('https://discord.com/api/users/@me', {
-        headers: {
-            Authorization: `Bearer ${token}`
+            // 2. Se não veio na URL, valida se já temos uma sessão ativa localmente
+            const savedToken = localStorage.getItem('discord_access_token');
+            if (savedToken) {
+                fetchDiscordUserData(savedToken);
+            } else {
+                showLoginButton();
+            }
         }
-    })
-    .then(response => {
-        if (!response.ok) {
-            // Se o token expirou ou deu erro, desloga o usuário
-            throw new Error('Token inválido ou expirado');
+
+        function fetchDiscordUserData(token) {
+            // Requisição usando no-cors para evitar os bloqueios de rota comuns
+            fetch('https://discord.com/api/oauth2/@me', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            .then(res => {
+                if (!res.ok) throw new Error('Sessão expirada');
+                return res.json();
+            })
+            .then(authData => {
+                // Se a autenticação e o token forem válidos, extraímos com segurança o nó do usuário
+                if (authData && authData.user) {
+                    renderUserProfile(authData.user);
+                } else {
+                    // Fallback para API padrão caso o objeto venha em estrutura alternativa
+                    showProfileFallback(token);
+                }
+            })
+            .catch(err => {
+                console.warn('Tentando fallback de conexão alternativa...', err);
+                showProfileFallback(token);
+            });
         }
-        return response.json();
-    })
-    .then(data => {
-        // data contém as propriedades reais: username, id, avatar, etc.
-        renderUserProfile(data);
-    })
-    .catch(error => {
-        console.error('Erro ao buscar dados do Discord:', error);
-        handleLogout();
-    });
-}
 
-// Renderiza a caixinha com a foto e o nick do usuário real
-function renderUserProfile(user) {
-    const loginArea = document.getElementById('loginArea');
-    
-    // Monta a URL da imagem de avatar oficial do Discord
-    const avatarUrl = user.avatar 
-        ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`
-        : `https://cdn.discordapp.com/embed/avatars/${user.discriminator % 5}.png`; // Avatar padrão caso não tenha
+        // Rota secundária caso o endpoint de escopo direto precise reconstruir o nó
+        function showProfileFallback(token) {
+            fetch('https://discord.com/api/users/@me', {
+                headers: { 'Authorization': `Bearer ${token}` }
+            })
+            .then(res => {
+                if(res.ok) return res.json();
+                idDeadToken();
+            })
+            .then(user => {
+                if(user) renderUserProfile(user);
+            })
+            .catch(() => idDeadToken());
+        }
 
-    loginArea.innerHTML = `
-        <div class="user-profile">
-            <img src="${avatarUrl}" class="user-avatar" alt="${user.username}" style="object-fit: cover;">
-            <span>${user.username}</span>
-            <button onclick="handleLogout()" style="background:none; border:none; color:#ff4f4f; margin-left:10px; cursor:pointer; font-weight: bold; font-size:12px;">Sair</button>
-        </div>
-    `;
-}
+        function idDeadToken() {
+            localStorage.removeItem('discord_access_token');
+            showLoginButton();
+        }
 
-// Mostra o botão de login se o usuário estiver deslogado
-function showLoginButton() {
-    const loginArea = document.getElementById('loginArea');
-    loginArea.innerHTML = `<button class="login-btn" onclick="handleLogin()">Login</button>`;
-}
+        function renderUserProfile(user) {
+            const loginArea = document.getElementById('loginArea');
+            if (!loginArea) return;
 
-// Redireciona o usuário para a página de autorização oficial do Discord
-function handleLogin() {
-    // Escopos necessários: 'identify' permite pegar nome e avatar
-    const url = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=identify`;
-    window.location.href = url;
-}
+            // Gera o link dinâmico oficial da CDN do Discord para puxar a foto real
+            const avatarUrl = user.avatar 
+                ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`
+                : `https://cdn.discordapp.com/embed/avatars/${parseInt(user.id) % 5}.png`;
 
-// Desloga o usuário limpando o armazenamento local
-function handleLogout() {
-    localStorage.removeItem('discord_access_token');
-    showLoginButton();
-}
+            loginArea.innerHTML = `
+                <div class="user-profile">
+                    <img src="${avatarUrl}" class="user-avatar" alt="${user.username}" style="object-fit: cover; border-radius: 50%;">
+                    <span>${user.username}</span>
+                    <button onclick="handleLogout()" style="background:none; border:none; color:#ff4f4f; margin-left:10px; cursor:pointer; font-weight: bold; font-size:12px;">Sair</button>
+                </div>
+            `;
+        }
 
-// Mantém as outras funções do seu script rodando normalmente abaixo...
-let currentBotIndex = 0;
-const totalBots = 5;
+        function showLoginButton() {
+            const loginArea = document.getElementById('loginArea');
+            if (loginArea) {
+                loginArea.innerHTML = `<button class="login-btn" onclick="handleLogin()">Login</button>`;
+            }
+        }
 
-function moveSlider(direction) {
-    currentBotIndex += direction;
-    if (currentBotIndex < 0) currentBotIndex = totalBots - 1;
-    if (currentBotIndex >= totalBots) currentBotIndex = 0;
-    const track = document.getElementById('botsTrack');
-    if(track) track.style.transform = `translateX(-${currentBotIndex * 20}%)`;
-}
+        function handleLogin() {
+            const url = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=identify`;
+            window.location.href = url;
+        }
 
-function switchTab(tabId) {
-    document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-    document.getElementById(tabId).classList.add('active');
-    const targetBtn = Array.from(document.querySelectorAll('.tab-btn')).find(btn => btn.textContent.toLowerCase() === (tabId === 'home' ? 'home' : tabId));
-    if(targetBtn) targetBtn.classList.add('active');
-}
+        function handleLogout() {
+            localStorage.removeItem('discord_access_token');
+            showLoginButton();
+        }
 
-function toggleFaq(element) {
-    const answer = element.querySelector('.faq-answer');
-    answer.style.display = (answer.style.display === 'block') ? 'none' : 'block';
-}
+        // --- CONTROLES DE SLIDER E INTERFACE GERAL ---
+        let currentBotIndex = 0;
+        const totalBots = 5;
 
-function toggleAccordion(element) {
-    const content = element.nextElementSibling;
-    const arrow = element.querySelector('span');
-    if (content.style.display === 'block') {
-        content.style.display = 'none';
-        arrow.textContent = '▼';
-    } else {
-        content.style.display = 'block';
-        arrow.textContent = '▲';
-    }
-}
+        function moveSlider(direction) {
+            currentBotIndex += direction;
+            if (currentBotIndex < 0) currentBotIndex = totalBots - 1;
+            if (currentBotIndex >= totalBots) currentBotIndex = 0;
+            const track = document.getElementById('botsTrack');
+            if(track) track.style.transform = `translateX(-${currentBotIndex * 20}%)`;
+        }
 
-window.onload = checkLoginState;
+        function switchTab(tabId) {
+            document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            
+            const targetSection = document.getElementById(tabId);
+            if(targetSection) targetSection.classList.add('active');
+            
+            const targetBtn = Array.from(document.querySelectorAll('.tab-btn')).find(btn => btn.textContent.toLowerCase() === (tabId === 'home' ? 'home' : tabId));
+            if(targetBtn) targetBtn.classList.add('active');
+        }
+
+        function toggleFaq(element) {
+            const answer = element.querySelector('.faq-answer');
+            if(answer) {
+                answer.style.display = (answer.style.display === 'block') ? 'none' : 'block';
+            }
+        }
+
+        function toggleAccordion(element) {
+            const content = element.nextElementSibling;
+            const arrow = element.querySelector('span');
+            if(content && arrow) {
+                if (content.style.display === 'block') {
+                    content.style.display = 'none';
+                    arrow.textContent = '▼';
+                } else {
+                    content.style.display = 'block';
+                    arrow.textContent = '▲';
+                }
+            }
+        }
+
+        window.onload = checkLoginState;
     </script>
 </body>
 </html>
