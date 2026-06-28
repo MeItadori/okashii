@@ -12,7 +12,6 @@
     <meta property="og:description" content="Conheça o universo do projeto MIS! Cinco bots exclusivos com personalidades marcantes, sistemas de economia, minigames e suporte para o seu servidor.">
     <meta property="og:image" content="https://invertidos.vercel.app/invertidos.png">
     <meta name="theme-color" content="#FFBAD9">
-    
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://invertidos.vercel.app/">
     <meta name="twitter:card" content="summary_large_image">
@@ -440,7 +439,7 @@
 
             <div class="home-description-section">
                 <p class="project-intro">
-                    O Mundo InvertidoS (MIS) é um projeto criado com o objetivo de oferecer recursos inovadores para servidores de todos os tamanhos, dando vida aos cinco protagonistas da novel InvertidoS por meio de bots uniques, cada um com sua própria personalidade e função.
+                    O Mundo InvertidoS (MIS) é um projeto criado com o objetivo de oferecer recursos inovadores para servidores de todos os tamanhos, dando vida aos cinco protagonistas da novel InvertidoS por meio de bots únicos, cada um com sua própria personalidade e função.
                 </p>
 
                 <div class="protagonists-list">
@@ -656,10 +655,10 @@
 
     <script>
         // --- CONFIGURAÇÕES DO DISCORD OAUTH2 ---
-        const CLIENT_ID = '1428702890608033922'; 
+        const CLIENT_ID = '1428702890608033922'; // Seu ID de Cliente Real Confirmado!
         const REDIRECT_URI = 'https://invertidos.vercel.app/'; 
 
-        // --- SISTEMA DE LOGIN PERSISTENTE E CORRIGIDO ---
+        // --- SISTEMA DE LOGIN PERSISTENTE E SEGURO ---
         function checkLoginState() {
             const hash = window.location.hash;
             if (hash) {
@@ -667,6 +666,7 @@
                 const accessToken = params.get('access_token');
                 
                 if (accessToken) {
+                    // Limpa os parâmetros com hashtag da barra de endereços sem recarregar o site
                     window.history.replaceState({}, document.title, window.location.pathname + window.location.search);
                     localStorage.setItem('discord_access_token', accessToken);
                     fetchDiscordUserData(accessToken);
@@ -683,8 +683,8 @@
         }
 
         function fetchDiscordUserData(token) {
-            fetch('https://discord.com/api/oauth2/@me', {
-                method: 'GET',
+            // Rota correta e limpa para obter informações básicas (@me) do usuário logado
+            fetch('https://discord.com/api/users/@me', {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -693,49 +693,31 @@
                 if (!res.ok) throw new Error('Sessão expirada');
                 return res.json();
             })
-            .then(authData => {
-                if (authData && authData.user) {
-                    renderUserProfile(authData.user);
+            .then(user => {
+                if (user && user.username) {
+                    renderUserProfile(user);
                 } else {
-                    showProfileFallback(token);
+                    handleLogout();
                 }
             })
             .catch(err => {
-                console.warn('Tentando fallback de conexão alternativa...', err);
-                showProfileFallback(token);
+                console.error('Falha de conexão com a API do Discord:', err);
+                handleLogout(); // Evita loop infinito limpando o estado quebrado
             });
-        }
-
-        function showProfileFallback(token) {
-            fetch('https://discord.com/api/users/@me', {
-                headers: { 'Authorization': `Bearer ${token}` }
-            })
-            .then(res => {
-                if(res.ok) return res.json();
-                idDeadToken();
-            })
-            .then(user => {
-                if(user) renderUserProfile(user);
-            })
-            .catch(() => idDeadToken());
-        }
-
-        function idDeadToken() {
-            localStorage.removeItem('discord_access_token');
-            showLoginButton();
         }
 
         function renderUserProfile(user) {
             const loginArea = document.getElementById('loginArea');
             if (!loginArea) return;
 
+            // Coleta a foto de avatar real da CDN Oficial do Discord
             const avatarUrl = user.avatar 
                 ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`
                 : `https://cdn.discordapp.com/embed/avatars/${parseInt(user.id) % 5}.png`;
 
             loginArea.innerHTML = `
                 <div class="user-profile">
-                    <img src="${avatarUrl}" class="user-avatar" alt="${user.username}" style="object-fit: cover; border-radius: 50%;">
+                    <img src="${avatarUrl}" class="user-avatar" alt="${user.username}" style="object-fit: cover; border-radius: 50%; width: 30px; height: 30px;">
                     <span>${user.username}</span>
                     <button onclick="handleLogout()" style="background:none; border:none; color:#ff4f4f; margin-left:10px; cursor:pointer; font-weight: bold; font-size:12px;">Sair</button>
                 </div>
