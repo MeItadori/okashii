@@ -655,88 +655,137 @@
 
     </main>
 
-    <script>
-        let currentBotIndex = 0;
-        const totalBots = 5;
+    <script>// --- CONFIGURAÇÕES DO DISCORD OAUTH2 ---
+const CLIENT_ID = '1428702890608033922'; // Insira o Client ID do seu bot aqui
+const REDIRECT_URI = 'https://invertidos.vercel.app/'; // URL exata configurada no portal
 
-        function moveSlider(direction) {
-            currentBotIndex += direction;
-            if (currentBotIndex < 0) currentBotIndex = totalBots - 1;
-            if (currentBotIndex >= totalBots) currentBotIndex = 0;
-            
-            const track = document.getElementById('botsTrack');
-            track.style.transform = `translateX(-${currentBotIndex * 20}%)`;
+// --- SISTEMA DE LOGIN PERSISTENTE E REAL DO DISCORD ---
+
+// Função executada assim que a página carrega
+function checkLoginState() {
+    // 1. Verifica se veio um token de acesso na URL (o Discord envia após o login)
+    const fragment = new URLSearchParams(window.location.hash.slice(1));
+    const accessToken = fragment.get('access_token');
+
+    if (accessToken) {
+        // Limpa o token da URL para o endereço ficar limpo
+        window.location.hash = '';
+        // Salva o token no navegador para persistência
+        localStorage.setItem('discord_access_token', accessToken);
+        // Busca os dados do perfil real do usuário
+        fetchDiscordUserData(accessToken);
+        return;
+    }
+
+    // 2. Se não veio na URL, verifica se já existe um token salvo no localStorage
+    const savedToken = localStorage.getItem('discord_access_token');
+    if (savedToken) {
+        fetchDiscordUserData(savedToken);
+    } else {
+        // Se não tem token nenhum, mostra o botão de login padrão
+        showLoginButton();
+    }
+}
+
+// Busca os dados de perfil diretamente da API oficial do Discord
+function fetchDiscordUserData(token) {
+    fetch('https://discord.com/api/users/@me', {
+        headers: {
+            Authorization: `Bearer ${token}`
         }
-
-        const artworkImages = [
-            'https://via.placeholder.com/300x150?text=Art+1',
-            'https://via.placeholder.com/300x150?text=Art+2',
-            'https://via.placeholder.com/300x150?text=Art+3'
-        ];
-        let artIndex = 0;
-        function rotateArtwork() {
-            artIndex = (artIndex + 1) % artworkImages.length;
-            if(document.getElementById('okashi-slide')) document.getElementById('okashi-slide').src = artworkImages[artIndex];
-            if(document.getElementById('fukuchi-slide')) document.getElementById('fukuchi-slide').src = artworkImages[artIndex];
+    })
+    .then(response => {
+        if (!response.ok) {
+            // Se o token expirou ou deu erro, desloga o usuário
+            throw new Error('Token inválido ou expirado');
         }
-        setInterval(rotateArtwork, 3000);
+        return response.json();
+    })
+    .then(data => {
+        // data contém as propriedades reais: username, id, avatar, etc.
+        renderUserProfile(data);
+    })
+    .catch(error => {
+        console.error('Erro ao buscar dados do Discord:', error);
+        handleLogout();
+    });
+}
 
-        function switchTab(tabId) {
-            document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            
-            const targetBtn = Array.from(document.querySelectorAll('.tab-btn')).find(btn => btn.textContent.toLowerCase() === (tabId === 'home' ? 'home' : tabId));
-            if(targetBtn) targetBtn.classList.add('active');
-        }
+// Renderiza a caixinha com a foto e o nick do usuário real
+function renderUserProfile(user) {
+    const loginArea = document.getElementById('loginArea');
+    
+    // Monta a URL da imagem de avatar oficial do Discord
+    const avatarUrl = user.avatar 
+        ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`
+        : `https://cdn.discordapp.com/embed/avatars/${user.discriminator % 5}.png`; // Avatar padrão caso não tenha
 
-        function toggleFaq(element) {
-            const answer = element.querySelector('.faq-answer');
-            answer.style.display = (answer.style.display === 'block') ? 'none' : 'block';
-        }
+    loginArea.innerHTML = `
+        <div class="user-profile">
+            <img src="${avatarUrl}" class="user-avatar" alt="${user.username}" style="object-fit: cover;">
+            <span>${user.username}</span>
+            <button onclick="handleLogout()" style="background:none; border:none; color:#ff4f4f; margin-left:10px; cursor:pointer; font-weight: bold; font-size:12px;">Sair</button>
+        </div>
+    `;
+}
 
-        function toggleAccordion(element) {
-            const content = element.nextElementSibling;
-            const arrow = element.querySelector('span');
-            if (content.style.display === 'block') {
-                content.style.display = 'none';
-                arrow.textContent = '▼';
-            } else {
-                content.style.display = 'block';
-                arrow.textContent = '▲';
-            }
-        }
+// Mostra o botão de login se o usuário estiver deslogado
+function showLoginButton() {
+    const loginArea = document.getElementById('loginArea');
+    loginArea.innerHTML = `<button class="login-btn" onclick="handleLogin()">Login</button>`;
+}
 
-        function checkLoginState() {
-            const savedUser = localStorage.getItem('discord_user');
-            const loginArea = document.getElementById('loginArea');
-            if (savedUser) {
-                loginArea.innerHTML = `
-                    <div class="user-profile">
-                        <div class="user-avatar"></div>
-                        <span>${savedUser}</span>
-                        <button onclick="handleLogout()" style="background:none; border:none; color:#ff4f4f; margin-left:5px; cursor:pointer; font-size:11px;">Sair</button>
-                    </div>
-                `;
-            } else {
-                loginArea.innerHTML = `<button class="login-btn" onclick="handleLogin()">Login</button>`;
-            }
-        }
+// Redireciona o usuário para a página de autorização oficial do Discord
+function handleLogin() {
+    // Escopos necessários: 'identify' permite pegar nome e avatar
+    const url = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=identify`;
+    window.location.href = url;
+}
 
-        function handleLogin() {
-            const username = prompt("Nick do Discord:");
-            if (username && username.trim() !== "") {
-                localStorage.setItem('discord_user', username.trim());
-                checkLoginState();
-            }
-        }
+// Desloga o usuário limpando o armazenamento local
+function handleLogout() {
+    localStorage.removeItem('discord_access_token');
+    showLoginButton();
+}
 
-        function handleLogout() {
-            localStorage.removeItem('discord_user');
-            checkLoginState();
-        }
+// Mantém as outras funções do seu script rodando normalmente abaixo...
+let currentBotIndex = 0;
+const totalBots = 5;
 
-        window.onload = checkLoginState;
+function moveSlider(direction) {
+    currentBotIndex += direction;
+    if (currentBotIndex < 0) currentBotIndex = totalBots - 1;
+    if (currentBotIndex >= totalBots) currentBotIndex = 0;
+    const track = document.getElementById('botsTrack');
+    if(track) track.style.transform = `translateX(-${currentBotIndex * 20}%)`;
+}
+
+function switchTab(tabId) {
+    document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    document.getElementById(tabId).classList.add('active');
+    const targetBtn = Array.from(document.querySelectorAll('.tab-btn')).find(btn => btn.textContent.toLowerCase() === (tabId === 'home' ? 'home' : tabId));
+    if(targetBtn) targetBtn.classList.add('active');
+}
+
+function toggleFaq(element) {
+    const answer = element.querySelector('.faq-answer');
+    answer.style.display = (answer.style.display === 'block') ? 'none' : 'block';
+}
+
+function toggleAccordion(element) {
+    const content = element.nextElementSibling;
+    const arrow = element.querySelector('span');
+    if (content.style.display === 'block') {
+        content.style.display = 'none';
+        arrow.textContent = '▼';
+    } else {
+        content.style.display = 'block';
+        arrow.textContent = '▲';
+    }
+}
+
+window.onload = checkLoginState;
     </script>
 </body>
 </html>
