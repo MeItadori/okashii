@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mundo InvertidoS</title>
+
+    <link rel="icon" type="image/png" href="https://invertidos.vercel.app/invertidos.png">
+    <link rel="apple-touch-icon" href="https://invertidos.vercel.app/invertidos.png">
+
+    <meta property="og:title" content="Mundo InvertidoS">
+    <meta property="og:description" content="Conheça o universo do projeto MIS! Cinco bots exclusivos com personalidades marcantes, sistemas de economia, minigames e suporte para o seu servidor.">
+    <meta property="og:image" content="https://invertidos.vercel.app/invertidos.png">
+    <meta name="theme-color" content="#FFBAD9">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://invertidos.vercel.app/">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <style>
+        /* --- CONFIGURAÇÕES GERAIS E PALETA DE CORES --- */
+        :root {
+            --rosa: #FFBAD9;
+            --amarelo: #FFE69D;
+            --azul: #52A4FD;
+            --verde: #A8E594;
+            --verde-escuro: #78C263; /* Nova tonalidade de destaque */
+            --verde-destaque: #C2F0B3; /* Nova tonalidade clara de destaque */
+            --roxo: #814FFF;
+            --escuro: #121315;
+            --fundo-card: rgba(255, 255, 255, 0.05);
+            --borda: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #121315;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* --- NAVBAR & NAVEGAÇÃO --- */
+        header {
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid var(--amarelo);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: 2px solid transparent;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover, .tab-btn.active {
+            background: var(--amarelo);
+            border-color: white;
+            color: #000;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .novel-btn {
+            background-color: var(--roxo);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .novel-btn:hover { opacity: 0.9; }
+
+        .suporte-navbar-btn {
+            background-color: #5865F2;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .suporte-navbar-btn:hover { background-color: #4752C4; transform: scale(1.02); }
+
+        /* --- CONTEÚDO PRINCIPAL --- */
+        main {
+            flex: 1;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- ABA 1: HOME --- */
+        .home-hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(135deg, rgba(255, 186, 217, 0.15), rgba(255, 230, 157, 0.1));
+            border-radius: 24px;
+            padding: 50px;
+            border: 2px solid var(--rosa);
+            position: relative;
+            overflow: hidden;
+            flex-wrap: wrap-reverse;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .home-text { flex: 1; min-width: 320px; }
+        .japanese-greeting { display: block; font-size: 1.8rem; color: var(--amarelo); font-weight: bold; margin-bottom: 10px; letter-spacing: 2px; }
+        .home-text h1 { font-size: 2.6rem; line-height: 1.2; margin-bottom: 25px; text-shadow: 2px 2px 4px rgba(0,0,0,0.6); }
+        .home-buttons { display: flex; gap: 15px; flex-wrap: wrap; }
+        
+        .home-btn {
+            padding: 14px 28px;
+            border-radius: 25px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+            text-align: center;
+        }
+        .btn-bots { background-color: var(--rosa); color: #000; }
+        .btn-suporte { background-color: var(--amarelo); color: #000; }
+        .btn-saiba { background-color: var(--verde); color: #000; }
+        .home-btn:hover { transform: scale(1.05); }
+
+        .home-img-wrapper { flex: 1; min-width: 320px; display: flex; justify-content: center; align-items: center; }
+        .home-img { max-width: 100%; height: auto; max-height: 380px; object-fit: contain; }
+
+        .home-description-section { background: var(--fundo-card); border: 1px solid var(--borda); border-radius: 24px; padding: 40px; }
+        .project-intro { font-size: 1.2rem; line-height: 1.7; color: #e1e3e6; margin-bottom: 40px; border-left: 4px solid var(--amarelo); padding-left: 20px; }
+        .protagonists-list { display: flex; flex-direction: column; gap: 25px; }
+        
+        .protagonist-item { background: rgba(0, 0, 0, 0.2); padding: 25px; border-radius: 16px; border-left: 6px solid transparent; }
+        .proto-okashi { border-left-color: var(--rosa); }
+        .proto-fukuchi { border-left-color: var(--verde); }
+        .proto-aoi { border-left-color: var(--azul); }
+        .proto-shoppai { border-left-color: var(--amarelo); }
+        .proto-manami { border-left-color: var(--roxo); }
+        .protagonist-item h3 { font-size: 1.3rem; margin-bottom: 8px; }
+        .proto-okashi h3 { color: var(--rosa); }
+        .proto-fukuchi h3 { color: var(--verde); }
+        .proto-aoi h3 { color: var(--azul); }
+        .proto-shoppai h3 { color: var(--amarelo); }
+        .proto-manami h3 { color: var(--roxo); }
+        .protagonist-item p { line-height: 1.6; color: #b9bbbe; }
+
+        /* --- ABA 2: BOTS --- */
+        .bots-slider-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        .bots-container {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            border-radius: 24px;
+        }
+
+        .bots-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            width: 500%;
+        }
+
+        .bot-card {
+            width: 20%;
+            padding: 35px;
+            border-radius: 24px;
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.3);
+            border: 2px solid rgba(255,255,255,0.1);
+        }
+
+        .bot-card.okashi-card { background: linear-gradient(135deg, #22141a, #4a1f33); border-color: var(--rosa); }
+        .bot-card.fukuchi-card { background: linear-gradient(135deg, #132210, #25461e); border-color: var(--verde); }
+        .bot-card.shoppai-card { background: linear-gradient(135deg, #222012, #47411f); border-color: var(--amarelo); }
+        .bot-card.aoi-card { background: linear-gradient(135deg, #101c2c, #1f3757); border-color: var(--azul); }
+        .bot-card.manami-card { background: linear-gradient(135deg, #19102c, #321f57); border-color: var(--roxo); }
+
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--amarelo);
+            border: 2px solid var(--amarelo);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: 0.3s;
+        }
+        .slider-arrow:hover {
+            background: var(--amarelo);
+            color: black;
+            transform: translateY(-50%) scale(1.1);
+        }
+        .arrow-left { left: -25px; }
+        .arrow-right { right: -25px; }
+
+        .bot-header-banner {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 25px;
+            border-radius: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 25px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .bot-info {
+            flex: 1;
+            text-align: left;
+        }
+
+        .bot-avatar { 
+            width: 100px; 
+            height: 100px; 
+            object-fit: cover; 
+            border-radius: 0;
+            border: none;
+        }
+
+        .bot-info h2 { font-size: 2.2rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        .bot-info p { color: #e1e3e6; margin: 5px 0 15px; font-size: 1.1rem; }
+        
+        .add-btn {
+            background: white;
+            color: black;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .add-btn:hover { transform: scale(1.05); }
+
+        .bot-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .bot-subbox { background: rgba(0, 0, 0, 0.4); padding: 20px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); }
+        .bot-subbox h3 { margin-bottom: 12px; font-size: 1.2rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 5px; color: #fff;}
+
+        .art-slider-box { height: 160px; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 12px; }
+        .art-slider-box img { width: 100%; height: 100%; object-fit: contain; background: rgba(0,0,0,0.2); }
+
+        .faq-item { background: rgba(255,255,255,0.05); margin-bottom: 10px; padding: 12px; border-radius: 8px; cursor: pointer; transition: 0.2s; }
+        .faq-item:hover { background: rgba(255,255,255,0.1); }
+        .faq-answer { display: none; padding-top: 8px; color: #cbd5e1; font-size: 0.95rem; line-height: 1.4; }
+
+        .emoji-box { display: flex; gap: 12px; margin-top: 15px; }
+        .emoji-box img { width: 45px; height: 45px; object-fit: contain; }
+
+        .empty-bot-message {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 40px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.05);
+            gap: 25px;
+        }
+        .empty-bot-info {
+            flex: 1;
+            text-align: left;
+        }
+        .empty-bot-message img { 
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 0;
+            border: none;
+        }
+        .empty-bot-message h2 { font-size: 2.2rem; margin-bottom: 10px; }
+        .empty-bot-message p { font-size: 1.2rem; color: #e2e8f0; }
+
+        /* --- ABA 3: ART CORRIGIDA (SEM CORTAR) --- */
+        .art-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .art-card { background: var(--fundo-card); border-radius: 15px; overflow: hidden; border: 1px solid var(--borda); display: flex; flex-direction: column; }
+        .art-card img { width: 100%; height: 300px; object-fit: contain; background: rgba(0, 0, 0, 0.3); padding: 10px; }
+        .art-desc { padding: 15px; background: rgba(0, 0, 0, 0.2); border-top: 1px solid var(--borda); }
+
+        /* --- ABA 4: PAINEL --- */
+        .panel-container { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 20px; text-align: center; }
+        .panel-container img { max-width: 200px; margin-bottom: 20px; }
+
+        /* --- NOVO LAYOUT DA ABA COMANDOS (ESTILO WIKI) --- */
+        .wiki-layout {
+            display: flex;
+            gap: 25px;
+            background: var(--fundo-card);
+            border: 1px solid var(--borda);
+            border-radius: 20px;
+            padding: 25px;
+            min-height: 600px;
+        }
+
+        .wiki-sidebar {
+            width: 250px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            border-right: 1px solid var(--borda);
+            padding-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .wiki-side-btn {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--borda);
+            color: #b9bbbe;
+            padding: 12px 18px;
+            border-radius: 12px;
+            cursor: pointer;
+            text-align: left;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .wiki-side-btn:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+        }
+
+        /* Cores Ativas Customizadas para cada Bot no Menu Lateral */
+        .wiki-side-btn.active[data-bot="okashi"] { background: var(--rosa); color: #000; border-color: white; }
+        .wiki-side-btn.active[data-bot="fukuchi"] { background: var(--verde); color: #000; border-color: white; }
+        .wiki-side-btn.active[data-bot="shoppai"] { background: var(--amarelo); color: #000; border-color: white; }
+        .wiki-side-btn.active[data-bot="aoi"] { background: var(--azul); color: #fff; border-color: white; }
+        .wiki-side-btn.active[data-bot="manami"] { background: var(--roxo); color: #fff; border-color: white; }
+
+        .wiki-content {
+            flex: 1;
+            overflow-y: auto;
+            padding-left: 5px;
+        }
+
+        .wiki-bot-section {
+            display: none;
+        }
+
+        .wiki-bot-section.active {
+            display: block;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        /* Sub-abas internas */
+        .subbox-tabs { 
+            display: flex; 
+            gap: 10px; 
+            margin-bottom: 25px; 
+            border-bottom: 1px solid var(--borda); 
+            padding-bottom: 12px; 
+        }
+        
+        .subtab-btn { 
+            background: rgba(255,255,255,0.05); 
+            border: 1px solid var(--borda); 
+            color: #cbd5e1; 
+            padding: 8px 18px; 
+            border-radius: 15px; 
+            cursor: pointer; 
+            font-size: 0.95rem; 
+            font-weight: bold; 
+            transition: 0.2s; 
+        }
+        
+        .subtab-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .subtab-btn.active { 
+            background: white; 
+            color: black; 
+            border-color: white; 
+        }
+        
+        .subbox-pane { 
+            display: none; 
+            line-height: 1.6; 
+        }
+        
+        .subbox-pane.active { 
+            display: block; 
+        }
+
+        /* Estilizações para textos de comandos (Wiki Estilo Documentação) */
+        .wiki-text h1 { font-size: 2rem; margin: 0px 0 15px 0; color: var(--verde); border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
+        .wiki-text h2 { font-size: 1.5rem; margin: 30px 0 15px 0; color: var(--verde-escuro); border-left: 4px solid var(--verde); padding-left: 12px; }
+        .wiki-text h3 { font-size: 1.2rem; margin: 20px 0 8px 0; color: #fff; }
+        .wiki-text p { margin-bottom: 14px; color: #cbd5e1; font-size: 1.05rem; }
+        .wiki-text blockquote { background: rgba(255,255,255,0.03); border-left: 4px solid var(--verde); padding: 12px 18px; margin: 15px 0; border-radius: 6px; color: #e2e8f0; font-style: italic; }
+        .wiki-text code { background: #000; color: var(--verde-destaque); padding: 4px 8px; border-radius: 6px; font-family: 'Courier New', Courier, monospace; font-size: 0.95rem; display: inline-block; margin: 4px 0; font-weight: bold; }
+        .wiki-text pre { background: #000; border-radius: 8px; padding: 15px; overflow-x: auto; margin: 15px 0; border: 1px solid var(--borda); }
+        .wiki-text pre code { display: block; padding: 0; color: var(--verde); background: transparent; font-weight: normal; }
+        
+        /* Corrigido: Estilo customizado para os tempos de recarga/descrições pequenas */
+        .wiki-text .cooldown-text {
+            display: block;
+            color: #8a8f98;
+            font-size: 0.9rem;
+            margin-top: 2px;
+            margin-bottom: 16px;
+            font-style: italic;
+        }
+        
+        /* Corrigido: Listas agora usam list-style-type nativo para evitar bolas duplicadas */
+        .wiki-text ul { 
+            margin-left: 20px; 
+            margin-bottom: 20px; 
+            color: #cbd5e1; 
+            list-style-type: disc;
+        }
+        .wiki-text li { 
+            margin-bottom: 8px; 
+            font-size: 1.05rem; 
+            padding-left: 5px;
+        }
+
+        .wiki-empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            text-align: center;
+            color: #72767d;
+        }
+        .wiki-empty-state p { font-size: 1.3rem; margin-top: 15px; color: #b9bbbe; }
+
+        /* --- SISTEMA DE ACCORDION E SUB-ABAS (DIRETRIZES) --- */
+        .accordion-container { display: flex; flex-direction: column; gap: 15px; }
+        .accordion-item { border-radius: 10px; overflow: hidden; }
+        .accordion-header { padding: 15px 20px; font-weight: bold; cursor: pointer; display: flex; justify-content: space-between; align-items: center; color: black; }
+        .acc-okashi { background-color: var(--rosa); }
+        .acc-fukuchi { background-color: var(--verde); }
+        .acc-shoppai { background-color: var(--amarelo); }
+        .acc-aoi { background-color: var(--azul); color: white; }
+        .acc-manami { background-color: var(--roxo); color: white; }
+        .accordion-content { display: none; padding: 20px; background: var(--fundo-card); border: 1px solid var(--borda); border-top: none; }
+
+        /* --- RODAPÉ (FOOTER) --- */
+        footer {
+            background-color: rgba(0, 0, 0, 0.6);
+            border-top: 1px solid var(--borda);
+            padding: 25px 20px;
+            text-align: center;
+            margin-top: auto;
+        }
+        .footer-love { font-size: 1.1rem; color: var(--rosa); margin-bottom: 8px; font-weight: 500; }
+        .footer-copyright { font-size: 0.9rem; color: #72767d; }
+
+        /* --- RESPONSIVIDADE (MOBILE) --- */
+        @media (max-width: 768px) {
+            .nav-container { flex-direction: column; align-items: stretch; }
+            .nav-tabs { overflow-x: auto; padding-bottom: 5px; white-space: nowrap; -webkit-overflow-scrolling: touch; }
+            .nav-right { justify-content: center; width: 100%; }
+            .nav-right a, .nav-right button { flex: 1; text-align: center; }
+            .art-grid { grid-template-columns: 1fr; }
+            .art-card img { height: 220px; }
+            .home-hero { padding: 25px; }
+            .home-text h1 { font-size: 1.8rem; }
+            .slider-arrow { width: 40px; height: 40px; font-size: 1.2rem; }
+            .arrow-left { left: -10px; }
+            .arrow-right { right: -10px; }
+            .bot-card { padding: 20px; }
+            .bot-header-banner, .empty-bot-message { flex-direction: column-reverse; text-align: center; }
+            .bot-info, .empty-bot-info { text-align: center; }
+            .bot-avatar, .empty-bot-message img { width: 100px; height: 100px; margin-bottom: 10px; }
+
+            /* Ajustes Mobile Wiki Corrigidos */
+            .wiki-layout { flex-direction: column; padding: 15px; min-height: auto; }
+            .wiki-sidebar { 
+                width: 100%; 
+                border-right: none; 
+                border-bottom: 1px solid var(--borda); 
+                padding-right: 0; 
+                padding-bottom: 15px; 
+                flex-direction: row; 
+                overflow-x: auto; 
+                white-space: nowrap; 
+                -webkit-overflow-scrolling: touch;
+            }
+            .wiki-side-btn { padding: 10px 15px; font-size: 0.9rem; display: inline-block; }
+            .wiki-content { padding-left: 0; padding-top: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <nav class="nav-tabs">
+                <button class="tab-btn active" onclick="switchTab('home')">Home</button>
+                <button class="tab-btn" onclick="switchTab('bots')">Bots</button>
+                <button class="tab-btn" onclick="switchTab('comandos')">Comandos</button>
+                <button class="tab-btn" onclick="switchTab('art')">Art</button>
+                <button class="tab-btn" onclick="switchTab('painel')">Painel</button>
+                <button class="tab-btn" onclick="switchTab('diretrizes')">Diretrizes</button>
+            </nav>
+            
+            <div class="nav-right">
+                <a href="https://noveltoon.mobi/pt/share/6139998" target="_blank" class="novel-btn">Novel</a>
+                <a href="https://discord.gg/5DgHA4jV2d" target="_blank" class="suporte-navbar-btn">Suporte</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="content-section active">
+            <div class="home-hero">
+                <div class="home-text">
+                    <span class="japanese-greeting">こんにちは!</span>
+                    <h1>Seja bem-vinda (o) ao universo invertido!</h1>
+                    <div class="home-buttons">
+                        <button class="home-btn btn-bots" onclick="switchTab('bots')">Bots</button>
+                        <a href="https://discord.gg/5DgHA4jV2d" class="home-btn btn-suporte">Servidor Suporte</a>
+                        <a href="#" class="home-btn btn-saiba">Saiba Mais</a>
+                    </div>
+                </div>
+                <div class="home-img-wrapper">
+                    <img src="invertidos.png" alt="Invertidos" class="home-img" onerror="this.src='https://via.placeholder.com/400x400?text=invertidos.png'">
+                </div>
+            </div>
+
+            <div class="home-description-section">
+                <p class="project-intro">
+                    O Mundo InvertidoS (MIS) é um projeto criado com o objetivo de oferecer recursos inovadores para servidores de todos os tamanhos, dando vida aos cinco protagonistas da novel InvertidoS por meio de bots exclusivos, cada um com sua própria personalidade e função.
+                </p>
+
+                <div class="protagonists-list">
+                    <div class="protagonist-item proto-okashi">
+                        <h3>Okashi</h3>
+                        <p>A principal bot do projeto. Ela traz uma mecânica exclusiva de economia e diversão, criando uma experiência dinâmica e envolvendo toda a comunidade.</p>
+                    </div>
+                    <div class="protagonist-item proto-fukuchi">
+                        <h3>Fukuchi</h3>
+                        <p>O bot de eventos. Seus sistemas de economia são baseados em temas sazonais, oferecendo eventos especiais que mudam ao longo do ano. Atualmente, está com a temática da Copa.</p>
+                    </div>
+                    <div class="protagonist-item proto-aoi">
+                        <h3>Aoi</h3>
+                        <p>A bot utilitária. Disponibiliza gratuitamente diversos sistemas essenciais, como tickets, Tellonym, mensagens de boas-vindas e reações automáticas.</p>
+                    </div>
+                    <div class="protagonist-item proto-shoppai">
+                        <h3>Shoppai</h3>
+                        <p>O bot de moderação. Conta com um sistema completo e avançado de moderação, ajudando a manter seu servidor organizado e seguro.</p>
+                    </div>
+                    <div class="protagonist-item proto-manami">
+                        <h3>Manami</h3>
+                        <p>A única bot privada do projeto. Desenvolvida exclusivamente para o servidor de Minecraft do Mundo InvertidoS, ela oferece sistemas personalizados para atender às necessidades da comunidade.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="bots" class="content-section">
+            <div class="bots-slider-wrapper">
+                <button class="slider-arrow arrow-left" onclick="moveSlider(-1)">❮</button>
+                <button class="slider-arrow arrow-right" onclick="moveSlider(1)">❯</button>
+
+                <div class="bots-container">
+                    <div class="bots-track" id="botsTrack">
+                        
+                        <div class="bot-card okashi-card">
+                            <div class="bot-header-banner">
+                                <div class="bot-info">
+                                    <h2>Okashi</h2>
+                                    <p>Bot simples de diversão e economia</p>
+                                    <a href="https://discord.com/oauth2/authorize?client_id=1260272153979388076" target="_blank" class="add-btn" style="text-decoration: none; display: inline-block;">Adicionar</a>
+                                </div>
+                                <img src="okashi.png" alt="Okashi" class="bot-avatar" onerror="this.src='https://via.placeholder.com/100x100?text=Okashi'">
+                            </div>
+                            <div class="bot-grid">
+                                <div class="bot-subbox">
+                                    <h3>Artwork</h3>
+                                    <div class="art-slider-box">
+                                        <img id="okashi-slide" src="okashi1.png" alt="Artwork">
+                                    </div>
+                                </div>
+                                <div class="bot-subbox">
+                                    <h3>Faqs</h3>
+                                    <div class="faq-item" onclick="toggleFaq(this)">
+                                        <strong>Como usar a economia?</strong>
+                                        <div class="faq-answer">Use os comandos básicos para ganhar moedas diariamente!</div>
+                                    </div>
+                                    <div class="faq-item" onclick="toggleFaq(this)">
+                                        <strong>Como jogar os minigames?</strong>
+                                        <div class="faq-answer">Temos diversos comandos divertidos interativos.</div>
+                                    </div>
+                                    <div class="emoji-box">
+                                        <img src="okashiemoji1.png" alt="Emoji 1" onerror="this.src='https://via.placeholder.com/40?text=😋'">
+                                        <img src="okashiemoji2.png" alt="Emoji 2" onerror="this.src='https://via.placeholder.com/40?text=⭐'">
+                                    </div>
+                                </div>
+                                <div class="bot-subbox">
+                                    <h3>Informações</h3>
+                                    <p>Okashi, doce. Okashii, estranho. Wokashi, charmosa. E a nossa Okashi? Total oposto de tudo isso.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bot-card fukuchi-card">
+                            <div class="bot-header-banner">
+                                <div class="bot-info">
+                                    <h2>Fukuchi</h2>
+                                    <p>Bot de economia brasileira!</p>
+                                    <a href="https://discord.com/oauth2/authorize?client_id=1428702890608033922" target="_blank" class="add-btn" style="text-decoration: none; display: inline-block;">Adicionar</a>
+                                </div>
+                                <img src="fukuchi.png" alt="Fukuchi" class="bot-avatar" onerror="this.src='https://via.placeholder.com/100x100?text=Fukuchi'">
+                            </div>
+                            <div class="bot-grid">
+                                <div class="bot-subbox">
+                                    <h3>Artwork</h3>
+                                    <div class="art-slider-box">
+                                        <img id="fukuchi-slide" src="fukuchi2.png" alt="Artwork">
+                                    </div>
+                                </div>
+                                <div class="bot-subbox">
+                                    <h3>Faqs</h3>
+                                    <div class="faq-item" onclick="toggleFaq(this)">
+                                        <strong>Por que os comandos de aposta possuem cooldown?</strong>
+                                        <div class="faq-answer">Para evitar spam de comandos e impedir que você fique apostando 24h.</div>
+                                    </div>
+                                </div>
+                                <div class="bot-subbox">
+                                    <h3>Informações</h3>
+                                    <p>Tá com mais dúvidas sobre mim? Entre no servidor suporte que lá tem um textaaao de Faqs.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bot-card shoppai-card">
+                            <div class="empty-bot-message">
+                                <div class="empty-bot-info">
+                                    <h2>Shoppai</h2>
+                                    <p>Não tem nada para ver aqui ¯\_(ツ)_/¯</p>
+                                </div>
+                                <img src="shoppai.png" alt="Shoppai" onerror="this.src='https://via.placeholder.com/120x120?text=Shoppai'">
+                            </div>
+                        </div>
+
+                        <div class="bot-card aoi-card">
+                            <div class="empty-bot-message">
+                                <div class="empty-bot-info">
+                                    <h2>Aoi</h2>
+                                    <p>Não tem nada para ver aqui ¯\_(ツ)_/¯</p>
+                                </div>
+                                <img src="aoi.png" alt="Aoi" onerror="this.src='https://via.placeholder.com/120x120?text=Aoi'">
+                            </div>
+                        </div>
+
+                        <div class="bot-card manami-card">
+                            <div class="empty-bot-message">
+                                <div class="empty-bot-info">
+                                    <h2>Manami</h2>
+                                    <p>Não tem nada para ver aqui ¯\_(ツ)_/¯</p>
+                                </div>
+                                <img src="manami.png" alt="Manami" onerror="this.src='https://via.placeholder.com/120x120?text=Manami'">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="comandos" class="content-section">
+            <div class="wiki-layout">
+                <div class="wiki-sidebar">
+                    <button class="wiki-side-btn active" data-bot="okashi" onclick="switchWikiBot('okashi')">Okashi</button>
+                    <button class="wiki-side-btn" data-bot="fukuchi" onclick="switchWikiBot('fukuchi')">Fukuchi</button>
+                    <button class="wiki-side-btn" data-bot="shoppai" onclick="switchWikiBot('shoppai')">Shoppai</button>
+                    <button class="wiki-side-btn" data-bot="aoi" onclick="switchWikiBot('aoi')">Aoi</button>
+                    <button class="wiki-side-btn" data-bot="manami" onclick="switchWikiBot('manami')">Manami</button>
+                </div>
+
+                <div class="wiki-content">
+                    
+                    <div id="wiki-bot-okashi" class="wiki-bot-section active">
+                        <div class="subbox-tabs">
+                            <button class="subtab-btn active" onclick="switchSubTab(this, 'okashi-cmd-pane')">Comandos</button>
+                            <button class="subtab-btn" onclick="switchSubTab(this, 'okashi-sys-pane')">Sistemas</button>
+                        </div>
+                        <div id="okashi-cmd-pane" class="subbox-pane active">
+                            <div class="wiki-empty-state">
+                                <p>Não tem nada para ver aqui ¯\_(ツ)_/¯</p>
+                            </div>
+                        </div>
+                        <div id="okashi-sys-pane" class="subbox-pane">
+                            <div class="wiki-empty-state">
+                                <p>Não tem nada para ver aqui ¯\_(ツ)_/¯</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="wiki-bot-fukuchi" class="wiki-bot-section text-content-area">
+                        <div class="subbox-tabs">
+                            <button class="subtab-btn active" onclick="switchSubTab(this, 'fukuchi-cmd-pane')">Comandos</button>
+                            <button class="subtab-btn" onclick="switchSubTab(this, 'fukuchi-sys-pane')">Sistemas</button>
+                        </div>
+                        
+                        <div id="fukuchi-cmd-pane" class="subbox-pane active wiki-text">
+                            <p><strong>こんにちは!</strong> Prazer, eu sou o Fukuchi!</p>
+                            <p><code>Prefixo: F./f.</code><br><span class="cooldown-text">Versão: 1.2.1</span></p>
+                            
+                            <h1>Copa do Mundo 🇧🇷</h1>
+                            <p>Objetivo: Fazer você perder pontos, ganhar pontos e tomar decisões ruins ou boas.</p>
+                            
+                            <h2>Primeiros Passos</h2>
+                            <p>🇧🇷 Ganhe seus primeiros pontos pegando seu auxílio emergencial.</p>
+                            
+                            <code>F.auxilio</code>
+                            <blockquote>Receba seu auxílio diário.</blockquote>
+                            
+                            <code>F.quiz</code>
+                            <blockquote>Responda perguntas sobre futebol e Copa do Mundo para ganhar pontos.</blockquote>
+                            <span class="cooldown-text">Tempo de recarga: 20 minutos</span>
+                            
+                            <code>F.carteira</code>
+                            <blockquote>Veja seu saldo, vitórias, derrotas e estatísticas.</blockquote>
+                            
+                            <code>F.cpf</code>
+                            <blockquote>Veja seu perfil ou de outra pessoa. O CPF é totalmente personalizável.</blockquote>
+                            
+                            <h2>Economia</h2>
+                            <p>Dinheiro movimenta o Brasil! <em>E a mim!</em></p>
+                            
+                            <code>F.pix @usuário &lt;quantia&gt;</code>
+                            <blockquote>Transfere pontos para outro jogador.</blockquote>
+                            
+                            <code>F.girar &lt;cara/coroa&gt; &lt;quantia&gt;</code>
+                            <blockquote>Gire a moeda para ver o resultado.</blockquote>
+                            <span class="cooldown-text">Tempo de recarga: 15 segundos</span>
+                            
+                            <code>F.travar &lt;quantia&gt;</code>
+                            <blockquote>Uma barra que sobe. Quanto mais sobe, maior o multiplicador e as chances dela travar e você perder tudo!</blockquote>
+                            <span class="cooldown-text">Tempo de recarga: 2 horas</span>
+                            
+                            <code>F.cofre &lt;quantia&gt;</code>
+                            <blockquote>Tente assaltar um cofre adivinhando sua senha. São 5 chances, e quanto menos chances usar, maior o multiplicador.</blockquote>
+                            <span class="cooldown-text">Tempo de recarga: 90 segundos</span>
+                            
+                            <code>F.bomba</code>
+                            <blockquote>Ache as bandeiras e evite as bombas! Cada bandeira encontrada multiplica seus pontos em 1.5x.</blockquote>
+                            <span class="cooldown-text">Tempo de recarga: 10 minutos</span>
+                            
+                            <code>F.dobrar</code>
+                            <blockquote>Dobre seus pontos ao máximo, mas cuidado porque a ABF pode confiscar tudo.</blockquote>
+                            <span class="cooldown-text">Tempo de recarga: 20 minutos</span>
+                            
+                            <code>F.placar</code>
+                            <blockquote>Placar do servidor.</blockquote>
+                            
+                            <code>F.placar global</code>
+                            <blockquote>Placar global do Fukuchi.</blockquote>
+                            
+                            <h3>Exemplos:</h3>
+                            <pre><code>F.pix @Okashi 10k
+F.travar 900k
+F.cofre 15k
+F.girar cara all</code></pre>
+                            
+                            <h2>CPF Brasileiro</h2>
+                            <p>Seu CPF é seu perfil dentro do bot. Ele exibe:</p>
+                            <ul>
+                                <li>Pontos</li>
+                                <li>Ranking Global</li>
+                                <li>Emblemas</li>
+                                <li>Título equipado</li>
+                                <li>Taxa de vitória</li>
+                            </ul>
+                            
+                            <h3>Personalizações</h3>
+                            <code>F.equipar &lt;título&gt;</code>
+                            <blockquote>Equipa um título.</blockquote>
+                            
+                            <code>F.comprar &lt;item&gt;</code>
+                            <blockquote>Compra emblemas, títulos e cores para customização.</blockquote>
+                            
+                            <h2>Bugigangas do Fukuchi</h2>
+                            <p>A loja mais confiável e barata do Brasil. <em>Talvez.</em></p>
+                            <code>F.loja / F.bugigangas</code>
+                            <p>Abre a minha humilde lojinha. As categorias são:</p>
+                            <ul>
+                                <li><strong>📦 Geral</strong> — Coisas em geral</li>
+                                <li><strong>🎨 Personalização</strong> — Coisas para personalizar seu CPF</li>
+                                <li><strong>⚡ Poderes</strong> — Poderes folclóricos para você se divertir</li>
+                                <li><strong>🛍️ Atakarejo</strong> — Venda de sementes</li>
+                            </ul>
+                            
+                            <h2>Armazenamento</h2>
+                            <p>Tudo o que você possui fica guardado aqui.</p>
+                            <code>F.mochila</code>
+                            <blockquote>Mostra seus itens de inventário.</blockquote>
+                            <code>F.caldeirão</code>
+                            <blockquote>Mostra seus poderes folclóricos.</blockquote>
+                            <code>F.usar &lt;item&gt;</code>
+                            <blockquote>Usa um item específico.</blockquote>
+                            <code>F.ativar &lt;poder&gt;</code>
+                            <blockquote>Ativa um poder folclórico.</blockquote>
+                            
+                            <h2>Fazenda</h2>
+                            <p>Transforme sementes em lucro. Seja um verdadeiro latifundiário!</p>
+                            <code>F.fazenda</code>
+                            <blockquote>Exibe sua fazenda e a quantidade de lucros gerada.</blockquote>
+                            <code>F.plantar &lt;semente&gt; &lt;qualidade&gt;</code>
+                            <blockquote>Planta a semente escolhida na sua fazenda.</blockquote>
+                            <code>F.cavar &lt;semente&gt; &lt;qualidade&gt; &lt;quantidade&gt;</code>
+                            <blockquote>Retira uma semente plantada da sua fazenda.</blockquote>
+                            
+                            <h3>Sementes disponíveis</h3>
+                            <p>🍊 Laranja | ⚪ Algodão | ☕ Café | 🌽 Milho | 🌾 Cana-de-açúcar | 🌱 Soja</p>
+                            
+                            <h3>Qualidades</h3>
+                            <p>🥉 Bronze | 🥈 Prata | 🥇 Ouro</p>
+                            
+                            <h2>Títulos e emblemas</h2>
+                            <p>Deixe seu CPF customizado conseguindo títulos e emblemas.</p>
+                            <h3>Títulos Compráveis</h3>
+                            <p>🇧🇷 VEM HEXA | ⚡ Craque da Vez | ❤️ Fukuchi lover | 🌌 Mundo InvertidoS | 🔟 Camisa 10</p>
+                            
+                            <h3>Títulos por Conquista</h3>
+                            <p><strong>🚜 Fazendeiro</strong></p>
+                            <blockquote>Complete sua fazenda.</blockquote>
+                            <p><strong>👑 Dominador Mundial</strong></p>
+                            <blockquote>Seja Top 1 Global.</blockquote>
+                            <p><strong>❤️ Fukuchizetes</strong></p>
+                            <blockquote>Colete o auxílio por 10 dias seguidos.</blockquote>
+                            
+                            <h3>Emblemas Compráveis</h3>
+                            <p>⚽ Futebol | 🏆 Oscar | 🐶 Cachorro Caramelo | 🇧🇷 Brasilsilsil | 🔥 Ostentação</p>
+                            
+                            <h3>Emblemas por Conquistas</h3>
+                            <ul>
+                                <li>Consiga seu primeiro auxílio</li>
+                                <li>Seja o top 1 global</li>
+                                <li>Alcance a marca de 1M de pontos</li>
+                                <li>Alcance a marca de 2M de pontos</li>
+                                <li>Alcance a marca de 3M de pontos</li>
+                                <li>Alcance a marca de 5M de pontos</li>
+                            </ul>
+                            
+                            <h2>Poderes Folclóricos</h2>
+                            <ul>
+                                <li><strong>🌪️ Vento Sapeca (Saci):</strong> Rouba até 30% dos pontos de alguém.</li>
+                                <li><strong>🌳 Proteção da Floresta (Curupira):</strong> Bloqueia o próximo furto.</li>
+                                <li><strong>🔥 Fogo Protetor (Boitatá):</strong> Reflete um furto para o atacante.</li>
+                                <li><strong>🐬 Mar Traiçoeiro (Boto):</strong> Tenta duplicar itens ou pontos.</li>
+                                <li><strong>🧜 Voz da Sereia (Iara):</strong> Ganhos em dobro por 20 minutos.</li>
+                                <li><strong>🐊 Encantamento (Cuca):</strong> Proteção contra efeitos negativos.</li>
+                                <li><strong>🪙 Achados e Perdidos (Negrinho Pastoreio):</strong> Chance de encontrar ouro extra.</li>
+                                <li><strong>💀 Espírito Cruel (Corpo seco):</strong> Amaldiçoa alguém aleatório e reduz seus ganhos.</li>
+                            </ul>
+                            
+                            <h2>Configuração ADM</h2>
+                            <code>F.setsedex</code>
+                            <blockquote>Configura o canal onde as Sedex são enviadas.</blockquote>
+                            <code>F.permitir</code>
+                            <blockquote>Configura em quais canais o bot pode falar.</blockquote>
+                            <code>F.canais</code>
+                            <blockquote>Exibe a lista de canais permitidos.</blockquote>
+                            <code>F.remover</code>
+                            <blockquote>Remove a permissão de fala de um canal.</blockquote>
+                            <p><br><em>Rodapé: Com carinho ❤️</em></p>
+                        </div>
+                        
+                        <div id="fukuchi-sys-pane" class="subbox-pane wiki-text">
+                            <blockquote>Entenda detalhadamente o funcionamento de cada mecânica antes de investir suas moedas virtuais.</blockquote>
+                            
+                            <h1>SISTEMA ECONOMIA</h1>
+                            <p>Praticamente tudo em Fukuchi gira em torno dos Pontos de Brasilidade. Você pode ganhar pontos através de:</p>
+                            <p>💰 Auxílio | 📝 Quiz | 🚜 Fazenda | ⚡ Poderes | 🎮 Jogos</p>
+                            <p>Lembre-se de balancear suas estratégias para evitar grandes perdas.</p>
+                            
+                            <h2>Sistema de Títulos e emblemas</h2>
+                            <p>Títulos e emblemas são conquistas especiais que aparecem no seu perfil (CPF). Alguns podem ser comprados diretamente na loja, enquanto outros exigem o cumprimento de metas de evolução globais.</p>
+                            
+                            <h1>SISTEMA FAZENDA</h1>
+                            <blockquote>A fazenda funciona como um gerador passivo de pontos ao longo do tempo.</blockquote>
+                            
+                            <h2>Espaços</h2>
+                            <p>Cada fazenda possui:</p>
+                            <ul>
+                                <li>Capacidade limite de 30 espaços ocupados simultaneamente.</li>
+                                <li>Cada espaço corresponde a uma semente cultivada.</li>
+                                <li>Caso atinja o limite máximo, será necessário remover alguma cultura antes de plantar uma nova semente.</li>
+                            </ul>
+                            
+                            <h2>Qualidade das Sementes</h2>
+                            <p>As sementes possuem três categorias de raridade: 🥉 Bronze | 🥈 Prata | 🥇 Ouro</p>
+                            <p>Níveis maiores de qualidade garantem:</p>
+                            <ul>
+                                <li>Maior custo inicial de compra</li>
+                                <li>Taxa de rentabilidade elevada por ciclo</li>
+                                <li>Melhor margem de lucro passivo</li>
+                            </ul>
+                            
+                            <h2>Tipos de Plantação</h2>
+                            <p>🍊 Laranja | ⚪ Algodão | ☕ Café | 🌽 Milho | 🌾 Cana-de-açúcar | 🌱 Soja</p>
+                            
+                            <h2>Produção</h2>
+                            <p>Os lucros acumulam-se de forma automática e contínua baseando-se no volume global de sementes ativas na sua fazenda.</p>
+                            
+                            <h1>SISTEMAS PODERES FOLCLÓRICOS</h1>
+                            <p>Habilidades especiais ativáveis baseadas no folclore brasileiro com modificadores estratégicos temporários:</p>
+                            <ul>
+                                <li><strong>🌪️ Saci (Vento Sapeca):</strong> Tenta surrupiar uma porcentagem dos pontos do alvo.</li>
+                                <li><strong>🌳 Curupira (Proteção da Floresta):</strong> Escudo de uso único contra a próxima tentativa de roubo.</li>
+                                <li><strong>🔥 Boitatá (Fogo Protetor):</strong> Inverte a mecânica do ataque recebido fazendo o atacante perder os pontos.</li>
+                                <li><strong>🐬 Boto-cor-de-Rosa (Mar Traiçoeiro):</strong> Chance percentual de duplicar ou quebrar itens.</li>
+                                <li><strong>🧜 Iara (Voz da Sereia):</strong> Multiplicador geral de 2x em todas as recompensas de comandos por 20 minutos.</li>
+                                <li><strong>🐊 Cuca (Encantamento):</strong> Imunidade total a debuffs e bônus de sorte em comandos por 12 horas.</li>
+                                <li><strong>🪙 Negrinho do Pastoreio:</strong> Adiciona chances de drops bônus de pepitas por 2 horas.</li>
+                                <li><strong>💀 Corpo-Seco (Espírito Cruel):</strong> Reduz temporariamente as taxas de ganho de um usuário selecionado.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div id="wiki-bot-shoppai" class="wiki-bot-section">
+                        <div class="subbox-tabs">
+                            <button class="subtab-btn active" onclick="switchSubTab(this, 'shoppai-cmd-pane')">Comandos</button>
+                            <button class="subtab-btn" onclick="switchSubTab(this, 'shoppai-sys-pane')">Sistemas</button>
+                        </div>
+                        <div id="shoppai-cmd-pane" class="subbox-pane active">
+                            <div class="wiki-empty-state"><p>Não tem nada para ver aqui ¯\_(ツ)_/¯</p></div>
+                        </div>
+                        <div id="shoppai-sys-pane" class="subbox-pane">
+                            <div class="wiki-empty-state"><p>Não tem nada para ver aqui ¯\_(ツ)_/?</p></div>
+                        </div>
+                    </div>
+
+                    <div id="wiki-bot-aoi" class="wiki-bot-section">
+                        <div class="subbox-tabs">
+                            <button class="subtab-btn active" onclick="switchSubTab(this, 'aoi-cmd-pane')">Comandos</button>
+                            <button class="subtab-btn" onclick="switchSubTab(this, 'aoi-sys-pane')">Sistemas</button>
+                        </div>
+                        <div id="aoi-cmd-pane" class="subbox-pane active">
+                            <div class="wiki-empty-state"><p>Não tem nada para ver aqui ¯\_(ツ)_/¯</p></div>
+                        </div>
+                        <div id="aoi-sys-pane" class="subbox-pane">
+                            <div class="wiki-empty-state"><p>Não tem nada para ver aqui ¯\_(ツ)_/?</p></div>
+                        </div>
+                    </div>
+
+                    <div id="wiki-bot-manami" class="wiki-bot-section">
+                        <div class="subbox-tabs">
+                            <button class="subtab-btn active" onclick="switchSubTab(this, 'manami-cmd-pane')">Comandos</button>
+                            <button class="subtab-btn" onclick="switchSubTab(this, 'manami-sys-pane')">Sistemas</button>
+                        </div>
+                        <div id="manami-cmd-pane" class="subbox-pane active">
+                            <div class="wiki-empty-state"><p>Não tem nada para ver aqui ¯\_(ツ)_/¯</p></div>
+                        </div>
+                        <div id="manami-sys-pane" class="subbox-pane">
+                            <div class="wiki-empty-state"><p>Não tem nada para ver aqui ¯\_(ツ)_/?</p></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="art" class="content-section">
+            <div class="art-grid">
+                <div class="art-card"><img src="okashi1.png"><div class="art-desc"><h3>Okashi</h3><p>Icon da Okashi para a Novel.</p></div></div>
+                <div class="art-card"><img src="shoppai1.png"><div class="art-desc"><h3>Shoppai</h3><p>Icon do Shoppai para a Novel.</p></div></div>
+                <div class="art-card"><img src="fukuchi1.png"><div class="art-desc"><h3>Fukuchi</h3><p>Icon da aplicação Fukuchi.</p></div></div>
+                <div class="art-card"><img src="fukuchi2.png"><div class="art-desc"><h3>Fukuchi</h3><p>Icon do bot Fukuchi Brasileiro.</p></div></div>
+            </div>
+        </section>
+
+        <section id="painel" class="content-section">
+            <div class="panel-container">
+                <img src="sad.png" alt="Triste" onerror="this.src='https://via.placeholder.com/150?text=sad.png'">
+                <h2>Não tem nada para ver aqui ¯\_(ツ)_/¯</h2>
+            </div>
+        </section>
+
+        <section id="diretrizes" class="content-section">
+            <div class="accordion-container">
+                <div class="accordion-item">
+                    <div class="accordion-header acc-okashi" onclick="toggleAccordion(this)">Okashi <span>▼</span></div>
+                    <div class="accordion-content">
+                        <div class="subbox-tabs">
+                            <button class="subtab-btn active" onclick="switchSubTab(this, 'okashi-dir-pane')">Diretrizes</button>
+                            <button class="subtab-btn" onclick="switchSubTab(this, 'okashi-dsys-pane')">Sistemas</button>
+                        </div>
+                        <div id="okashi-dir-pane" class="subbox-pane active"><p>Não tem nada para ver aqui ¯\_(ツ)_/¯</p></div>
+                        <div id="okashi-dsys-pane" class="subbox-pane"><p>Não tem nada para ver aqui ¯\_(ツ)_/¯</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header acc-fukuchi" onclick="toggleAccordion(this)">Fukuchi <span>▼</span></div>
+                    <div class="accordion-content">
+                        <div class="subbox-tabs">
+                            <button class="subtab-btn active" onclick="switchSubTab(this, 'fukuchi-dir-pane')">Diretrizes</button>
+                            <button class="subtab-btn" onclick="switchSubTab(this, 'fukuchi-dsys-pane')">Sistemas</button>
+                        </div>
+                        
+                        <div id="fukuchi-dir-pane" class="subbox-pane active">
+                            <p>
+                                <strong>📜 DIRETRIZES DO USUÁRIO & TERMOS DE SERVIÇO</strong><br><br>
+                                Olá, Brasileiro! Bem-vindo às diretrizes oficiais do Fukuchi. Para garantir um ambiente divertido, justo e seguro para todos os usuários que utilizam nossos comandos de economia, fazendinha e futebol, estabelecemos algumas regras fundamentais.<br>
+                                Ao adicionar o Fukuchi ao seu servidor ou interagir com seus comandos, você concorda automaticamente com os termos listados abaixo. O não cumprimento dessas regras resultará em punições severas pela ABF (Associação Brasileira do Fukuchi) e nossa equipe de moderação global.<br><br>
+                                
+                                <strong>1. 🛡️ REGRAS DE CONVIVÊNCIA E COMPORTAMENTO</strong><br>
+                                • <strong>Proibido Conteúdo Ofensivo:</strong> É estritamente proibido utilizar sistemas de customização do bot (como alterar nomes de times, mensagens de Sedex ou campos customizados do CPF) para propagar discursos de ódio, racismo, homofobia, xenofobia, pornografia/NSFW ou apologia a crimes.<br>
+                                • <strong>Assédio e Ataques:</strong> Utilizar comandos de ataque (como o comando do Saci-Pererê) ou o sistema de mensagens anônimas/Sedex de forma obsessiva para perseguir, assediar ou intimidar um usuário específico será considerado abuso de funções.<br><br>
+                                
+                                <strong>2. 💸 ECONOMIA, EXPLOITS E BUGS</strong><br>
+                                • <strong>Uso de Bugs (Exploits):</strong> Se você encontrar qualquer erro, falha ou bug no código do Fukuchi que multiplique moedas de forma errônea, pule cooldowns ou dê vantagens injustas, você deve reportar imediatamente.<br>
+                                • <strong>Uso de Bots, Macros e Scripts (Selfbots):</strong> É proibido utilizar macros, autoclickers, scripts ou contas secundárias automatizadas. Toda e qualquer interação com o Fukuchi deve ser feita por um humano em tempo real.<br><br>
+                                
+                                <strong>3. 👥 MULTI-CONTAS (ALT-ACCOUNTS)</strong><br>
+                                • <strong>Farm de Moedas com Contas Fakes:</strong> É proibido criar contas alternativas ("fakes") no Discord com o único objetivo de coletar o bônus diário (F.auxilio) e transferir os fundos para a sua conta principal.<br><br>
+                                
+                                <strong>4. ⚖️ PUNIÇÕES E A POLÍCIA DO FUKUCHI</strong><br>
+                                • <strong>Prisão Temporária/Local:</strong> Uso do comando F.prender para retirar temporariamente seus direitos de interagir com o bot em virtude do mau comportamento.<br>
+                                • <strong>Blacklist Global (Banimento do Bot):</strong> Em casos graves, o usuário será banido de toda a rede do Fukuchi.<br>
+                                • <strong>Reset de Conta:</strong> Perda total de moedas, conquistas, títulos, jogadores do time e sementes da fazenda.<br><br>
+                                
+                                <strong>5. 🔒 PRIVACIDADE E DADOS DO USUÁRIO</strong><br>
+                                • <strong>O que salvamos:</strong> O ID público do seu usuário do Discord, seu saldo de moedas, estatísticas de jogos, histórico de login de comandos e itens do inventário.<br><br>
+                                
+                                <strong>📢 NOTA LEGAL / AVISOS FINAIS</strong><br>
+                                As moedas, pepitas, títulos e jogadores gerenciados pelo Fukuchi são bens estritamente virtuais e fictícios.<br>
+                                Jogue limpo, monte seu time de futebol lendário e divirta-se! 🇧🇷
+                            </p>
+                        </div>
+                        <div id="fukuchi-dsys-pane" class="subbox-pane">
+                            <p><strong>ABF</strong> • Associação Brasileira do Fukuchi<br>
+                            <strong>MIS</strong> • Mundo InvertidoS<br>
+                            <strong>TDO</strong> • Tropa dos Otakus</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header acc-shoppai" onclick="toggleAccordion(this)">Shoppai <span>▼</span></div>
+                    <div class="accordion-content">
+                        <div class="subbox-tabs">
+                            <button class="subtab-btn active" onclick="switchSubTab(this, 'shoppai-dir-pane')">Diretrizes</button>
+                            <button class="subtab-btn" onclick="switchSubTab(this, 'shoppai-dsys-pane')">Sistemas</button>
+                        </div>
+                        <div id="shoppai-dir-pane" class="subbox-pane active"><p>Não tem nada para ver aqui ¯\_(ツ)_/¯</p></div>
+                        <div id="shoppai-dsys-pane" class="subbox-pane"><p>Não tem nada para ver aqui ¯\_(ツ)_/¯</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header acc-aoi" onclick="toggleAccordion(this)">Aoi <span>▼</span></div>
+                    <div class="accordion-content">
+                        <div class="subbox-tabs">
+                            <button class="subtab-btn active" onclick="switchSubTab(this, 'aoi-dir-pane')">Diretrizes</button>
+                            <button class="subtab-btn" onclick="switchSubTab(this, 'aoi-dsys-pane')">Sistemas</button>
+                        </div>
+                        <div id="aoi-dir-pane" class="subbox-pane active"><p>Não tem nada para ver aqui ¯\_(ツ)_/¯</p></div>
+                        <div id="aoi-dsys-pane" class="subbox-pane"><p>Não tem nada para ver aqui ¯\_(ツ)_/¯</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header acc-manami" onclick="toggleAccordion(this)">Manami <span>▼</span></div>
+                    <div class="accordion-content">
+                        <div class="subbox-tabs">
+                            <button class="subtab-btn active" onclick="switchSubTab(this, 'manami-dir-pane')">Diretrizes</button>
+                            <button class="subtab-btn" onclick="switchSubTab(this, 'manami-dsys-pane')">Sistemas</button>
+                        </div>
+                        <div id="manami-dir-pane" class="subbox-pane active"><p>Não tem nada para ver aqui ¯\_(ツ)_/¯</p></div>
+                        <div id="manami-dsys-pane" class="subbox-pane"><p>Não tem nada para ver aqui ¯\_(ツ)_/¯</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-love">Com carinho MIS ❤️</div>
+        <div class="footer-copyright">InvertidoS todos os direitos autorais reservados</div>
+    </footer>
+
+    <script>
+        // --- CONTROLES DE SLIDER E INTERFACE GERAL ---
+        let currentBotIndex = 0;
+        const totalBots = 5;
+
+        function moveSlider(direction) {
+            currentBotIndex += direction;
+            if (currentBotIndex < 0) currentBotIndex = totalBots - 1;
+            if (currentBotIndex >= totalBots) currentBotIndex = 0;
+            const track = document.getElementById('botsTrack');
+            if(track) track.style.transform = `translateX(-${currentBotIndex * 20}%)`;
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            
+            const targetSection = document.getElementById(tabId);
+            if(targetSection) targetSection.classList.add('active');
+            
+            const targetBtn = Array.from(document.querySelectorAll('.tab-btn')).find(btn => btn.textContent.trim().toLowerCase() === (tabId === 'home' ? 'home' : tabId.toLowerCase()));
+            if(targetBtn) targetBtn.classList.add('active');
+        }
+
+        function toggleFaq(element) {
+            const answer = element.querySelector('.faq-answer');
+            if(answer) {
+                answer.style.display = (answer.style.display === 'block') ? 'none' : 'block';
+            }
+        }
+
+        function toggleAccordion(element) {
+            const content = element.nextElementSibling;
+            const arrow = element.querySelector('span');
+            if(content && arrow) {
+                if (content.style.display === 'block') {
+                    content.style.display = 'none';
+                    arrow.textContent = '▼';
+                } else {
+                    content.style.display = 'block';
+                    arrow.textContent = '▲';
+                }
+            }
+        }
+
+        // --- SISTEMA DE TROCA DE ABAS INTERNAS ---
+        function switchSubTab(buttonElement, targetPaneId) {
+            const parentContent = buttonElement.closest('.wiki-bot-section, .accordion-content');
+            
+            parentContent.querySelectorAll('.subtab-btn').forEach(btn => btn.classList.remove('active'));
+            parentContent.querySelectorAll('.subbox-pane').forEach(pane => pane.classList.remove('active'));
+            
+            buttonElement.classList.add('active');
+            const targetPane = document.getElementById(targetPaneId);
+            if(targetPane) targetPane.classList.add('active');
+        }
+
+        // --- NAVEGAÇÃO DA DOCUMENTAÇÃO DA ABA COMANDOS ---
+        function switchWikiBot(botName) {
+            document.querySelectorAll('.wiki-bot-section').forEach(section => section.classList.remove('active'));
+            document.querySelectorAll('.wiki-side-btn').forEach(btn => btn.classList.remove('active'));
+
+            const targetSection = document.getElementById(`wiki-bot-${botName}`);
+            if(targetSection) targetSection.classList.add('active');
+
+            const targetBtn = document.querySelector(`.wiki-side-btn[data-bot="${botName}"]`);
+            if(targetBtn) targetBtn.classList.add('active');
+        }
+    </script>
+</body>
+</html>
